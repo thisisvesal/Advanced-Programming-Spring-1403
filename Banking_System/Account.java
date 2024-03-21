@@ -17,14 +17,6 @@ public class Account {
         return accountNumber;
     }
 
-    public void setBalance(int balance) {
-        if (balance >= 0) {
-            this.balance = balance;
-        }
-        else {
-            System.out.println("Invalid balance: cannot be negative");
-        }
-    }
     public void deposit(int amount) {
         if (amount >= 0) {
             balance += amount;
