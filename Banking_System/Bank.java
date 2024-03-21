@@ -5,9 +5,10 @@ public class Bank {
     private String codeOfBank;
     private int number;
     private String bankCEO;
-    private static int countOfBanks = 0;
+    private static int countOfBanks;
     private int countOfCustomers;
-    private int countOfBranches = 0;
+    private int countOfBranches;
+    private Branch[] branches = new Branch[100];
 
     public Bank(String name, String bankCEO) {
         countOfBanks++;
@@ -16,8 +17,9 @@ public class Bank {
     }
 
     public Branch branchGenerator(String managerName, String address) {
+        branches[countOfBranches] = new Branch(managerName, address, this);
         countOfBranches++;
-        return new Branch(managerName, address, this);
+        return branches[countOfBranches - 1];
     }
 
     public String codeGenerator(int number) {
@@ -67,7 +69,7 @@ public class Bank {
         return bankCEO;
     }
 
-    public int getCountOfBanks() {
+    public static int getCountOfBanks() {
         return countOfBanks;
     }
 
@@ -82,6 +84,10 @@ public class Bank {
             scanner.close();
         }
 
+    }
+
+    public void addCustomerCount() {
+        countOfCustomers++;
     }
 
     public int getCountOfCustomers() {
@@ -102,5 +108,29 @@ public class Bank {
 
     public int getCountOfBranches() {
         return countOfBranches;
+    }
+
+    public Branch getBranchAt(int i) {
+        return branches[i];
+    }
+
+    public void printAllBranches() {
+        for(int i = 0; i < countOfBranches; i++) {
+            System.out.println(branches[i].getManagerName());
+        }
+    }
+
+
+    public void getInfo() {
+        System.out.println("Bank info:");
+        System.out.println("name: " + name);
+        System.out.println("code of bank: " + codeOfBank);
+        System.out.println("number: " + number);
+        System.out.println("CEO: " + bankCEO);
+        System.out.println("CountOfBanks: " + countOfBanks);
+        System.out.println("Count of customers: " + countOfCustomers);
+        System.out.println("Count of branches: " + countOfBanks);
+        System.out.println("Branches: ");
+        printAllBranches();
     }
 }

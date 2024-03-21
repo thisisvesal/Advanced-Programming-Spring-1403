@@ -19,19 +19,15 @@ public class Customer {
     }
 
     public Customer(String name, String lastName, String phoneNumber, String nationalCode) {
-        new Customer(name, lastName, phoneNumber, nationalCode, "def@mail.com");
+        this(name, lastName, phoneNumber, nationalCode, "def@mail.com");
     }
 
     public void deposit(int amount) {
-        this.account.setBalance(this.account.getBalance() + amount);
+        this.account.deposit(amount);
     }
 
     public void withdraw(int amount) {
-        if (amount <= this.account.getBalance()) {
-            this.account.setBalance(this.account.getBalance() - amount);
-        } else {
-            System.out.println("The customer does not have enough balance for this withdrawal");
-        }
+        this.account.withdraw(amount);
     }
 
     public void setName(String name) {
@@ -96,5 +92,13 @@ public class Customer {
 
     public String getNationalCode() {
         return nationalCode;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }

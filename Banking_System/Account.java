@@ -1,12 +1,13 @@
 public class Account {
     private String accountNumber;
     private int balance;
-    private Customer accountOwner;
+    public final Customer accountOwner;
     private Branch branch;
 
     public Account(Customer accountOwner, Branch branch) {
         this.accountOwner = accountOwner;
         this.branch = branch;
+        accountOwner.setAccount(this);
     }
 
     public void setAccountNumber(String accountNumber) {
@@ -16,22 +17,37 @@ public class Account {
         return accountNumber;
     }
 
-    public void setBalance(int balace) {
-        this.balance = balace;
+    public void setBalance(int balance) {
+        if (balance >= 0) {
+            this.balance = balance;
+        }
+        else {
+            System.out.println("Invalid balance: cannot be negative");
+        }
+    }
+    public void deposit(int amount) {
+        if (amount >= 0) {
+            balance += amount;
+        } else {
+            System.out.println("Deposit amount cannot be negative");
+        }
+    }
+    public void withdraw(int amount) {
+        if (amount < 0) {
+            System.out.println("Withdrawal amount cannot be negative");
+        } else if (amount <= balance) {
+            balance -= amount;
+        } else {
+            System.out.println("The customer does not have enough balance for this withdrawal");
+        }
     }
     public int getBalance() {
         return balance;
     }
 
-    public void setAccountOwner(Customer accountOwner) {
-        this.accountOwner = accountOwner;
-    }
-    public Customer getAccountOwner() {
-        return accountOwner;
-    }
-
     public void setBranch(Branch branch) {
         this.branch = branch;
+        branch.accountGenerator(accountOwner);
     }
     public Branch getBranch() {
         return branch;
