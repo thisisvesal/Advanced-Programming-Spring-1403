@@ -1,3 +1,6 @@
+// See this project in my github repo:
+// https://github.com/thisisvesal/Advanced-Programming-Spring-1403/tree/master/Banking_System
+
 public class Main {
     public static void main(String[] args) {
         Bank catlar = new Bank("Catlar", "Kitty");
