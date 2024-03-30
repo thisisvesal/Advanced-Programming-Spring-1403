@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Bank {
     private String name;
     private String codeOfBank;
-    private int number;
+    public final int number;
     private String bankCEO;
     private static int countOfBanks;
     private int countOfCustomers;
@@ -12,19 +12,28 @@ public class Bank {
 
     public Bank(String name, String bankCEO) {
         countOfBanks++;
+        this.number = countOfBanks;
         this.name = name;
         this.bankCEO = bankCEO;
+        codeOfBank = codeGenerator(number);
     }
 
     public Branch branchGenerator(String managerName, String address) {
         branches[countOfBranches] = new Branch(managerName, address, this);
-        countOfBranches++;
         return branches[countOfBranches - 1];
+    }
+
+    public Branch branchGenerator(String address) {
+        return branchGenerator("Jane Doe", address);
     }
 
     public String codeGenerator(int number) {
         codeOfBank = "5010" + number;
         return codeOfBank;
+    }
+
+    public void addCountOfBranches() {
+        countOfBranches++;
     }
 
     public void setName(String name) {
@@ -43,23 +52,23 @@ public class Bank {
         return codeOfBank;
     }
 
-    public void setNumber(int number) {
-        if (number > 0) {
-            this.number = number;
-        }
-        else {
-            System.out.println("Bank number should be at least 1");
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Please enter again: ");
-            setNumber(scanner.nextInt());
-            scanner.close();
-        }
+    // public void setNumber(int number) {
+    //     if (number > 0) {
+    //         this.number = number;
+    //     }
+    //     else {
+    //         System.out.println("Bank number should be at least 1");
+    //         Scanner scanner = new Scanner(System.in);
+    //         System.out.print("Please enter again: ");
+    //         setNumber(scanner.nextInt());
+    //         scanner.close();
+    //     }
         
-    }
+    // }
 
-    public int getNumber() {
-        return this.number;
-    }
+    // public int getNumber() {
+    //     return this.number;
+    // }
 
     public void setBankCEO(String bankCEO) {
         this.bankCEO = bankCEO;
