@@ -12,7 +12,11 @@ public class Main {
         Customer kitty = catlar.getBranchAt(0).customerGenerator("cotton", "kitty", "83", "123");
         kethan.accountGenerator(kitty);
 
+        Customer goorba = catlar.getBranchAt(0).customerGenerator("Goorba", "Gorbachev", "73", "1462");
+        kethan.accountGenerator(goorba);
         Account kittysAccount = kitty.getAccount();
+
+        Account gorbAccount = goorba.getAccount();
 
         catlar.getInfo();
 
@@ -21,6 +25,8 @@ public class Main {
         int kittysbalance = kittysAccount.getBalance();
 
         System.out.println(kitty.getLastName() + "'s balance is: " + kittysbalance);
+
+        System.out.println("Goorba's account number is " + gorbAccount.accountNumber);
 
     }
 }
