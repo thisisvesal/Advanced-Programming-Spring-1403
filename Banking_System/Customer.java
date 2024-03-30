@@ -1,12 +1,11 @@
-import java.util.Scanner;
-
 public class Customer {
     private String name;
     private String lastName;
     private String address;
     private String phoneNumber;
     private String email;
-    private int IDInCentralBanking;
+    private static int count; // This attribute cannot be accessed from outside of the class, since it's only meant to determine IDInCentralBanking
+    public final int IDInCentralBanking;
     private String nationalCode;
     private Account account;
 
@@ -16,6 +15,8 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.nationalCode = nationalCode;
         this.email = email;
+        count++;
+        IDInCentralBanking = count;
     }
 
     public Customer(String name, String lastName, String phoneNumber, String nationalCode) {
@@ -28,6 +29,10 @@ public class Customer {
 
     public void withdraw(int amount) {
         this.account.withdraw(amount);
+    }
+
+    public int getBalance() {
+        return this.account.getBalance();
     }
 
     public void setName(String name) {
@@ -68,22 +73,6 @@ public class Customer {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setIDInCentralBanking(int IDInCentralBanking) {
-        if (IDInCentralBanking > 0) {
-            this.IDInCentralBanking = IDInCentralBanking;
-        } else {
-            System.out.println("The customer's ID should be at least 1!");
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Please enter again: ");
-            setIDInCentralBanking(scanner.nextInt());
-            scanner.close();
-        }
-    }
-
-    public int getIDInCentralBanking() {
-        return IDInCentralBanking;
     }
 
     public void setNationalCode(String nationalCode) {
