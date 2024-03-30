@@ -1,13 +1,13 @@
-import java.util.Scanner;
+// import java.util.Scanner;
 
 public class Branch {
     private String managerName;
     private String address;
     private String code;
-    private final Bank bank;
+    public final Bank bank;
     private int customerCount;
-    private int number;
-    // The number of customers must be set much higher in the real world
+    public final int number;
+    // The capacity of this array must be set much higher in the real world
     // This is merely set for testing purposes, and I am aware
     private Customer[] customers = new Customer[100];
 
@@ -15,6 +15,9 @@ public class Branch {
         this.managerName = managerName;
         this.address = address;
         this.bank = bank;
+        bank.addCountOfBranches();
+        number = bank.getCountOfBranches();
+        this.code = codeGenerator(number);
     }
 
     public Customer customerGenerator(String name, String lastName, String phoneNumber, String nationalCode,
@@ -34,11 +37,7 @@ public class Branch {
     }
 
     public String codeGenerator(int number) {
-        if (number >= 0) {
-            code = "6010" + number;
-        } else {
-            System.out.println("Invalid number for branch code");
-        }
+        code = "6010" + number;
         return code;
     }
 
@@ -66,41 +65,19 @@ public class Branch {
         return this.code;
     }
 
-    // "bank" is a final attribute. Therefore it does not have a set method.
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setCustomerCount(int customerCount) {
-        if (customerCount >= 0) {
-            this.customerCount = customerCount;
-        } else {
-            System.out.println("The number of customers cannot be negative!");
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Please enter again: ");
-            setCustomerCount(scanner.nextInt());
-            scanner.close();
-        }
-    }
+    // public void setCustomerCount(int customerCount) {
+    //     if (customerCount >= 0) {
+    //         this.customerCount = customerCount;
+    //     } else {
+    //         System.out.println("The number of customers cannot be negative!");
+    //         Scanner scanner = new Scanner(System.in);
+    //         System.out.print("Please enter again: ");
+    //         setCustomerCount(scanner.nextInt());
+    //         scanner.close();
+    //     }
+    // }
 
     public int getCustomerCount() {
         return customerCount;
-    }
-
-    public void setNumber(int number) {
-        if (number > 0) {
-            this.number = number;
-        } else {
-            System.out.println("Branch number should be at least 1");
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Please enter again: ");
-            setNumber(scanner.nextInt());
-            scanner.close();
-        }
-
-    }
-
-    public int getNumber() {
-        return number;
     }
 }
