@@ -50,7 +50,7 @@ public class User {
     }
 
     public String getFullName() {
-        return first_name.concat(last_name);
+        return first_name.concat(" ".concat(last_name));
     }
 
     public boolean isTaskRepetetive(String taskName) {
