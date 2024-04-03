@@ -41,8 +41,16 @@ public class Task {
         this.start_time = start_time;
     }
 
+    public double getStart_time() {
+        return start_time;
+    }
+
     public void setFinish_time(double finish_time) {
         this.finish_time = finish_time;
+    }
+
+    public double getFinish_time() {
+        return finish_time;
     }
 
     public double getDuration() {
