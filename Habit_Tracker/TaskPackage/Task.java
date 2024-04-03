@@ -1,5 +1,8 @@
 package TaskPackage;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import UserPackage.*;
 
 public class Task {
@@ -7,10 +10,16 @@ public class Task {
     private double start_time;
     private double finish_time;
     public final String color;
-    User taskUser;
+    private User taskUser;
 
     public void setName(String name) {
-        this.name = name;
+        Pattern validPattern = Pattern.compile("^.{1,10}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = validPattern.matcher(name);
+        if (matcher.find()) {
+            this.name = name;
+        } else {
+            System.out.println("Invalid task name!");
+        }
     }
 
     public String getName() {
@@ -51,5 +60,13 @@ public class Task {
         }
 
         return true;
+    }
+
+    public void setTaskUser(User taskUser) {
+        this.taskUser = taskUser;
+    }
+
+    public User getTaskUser() {
+        return taskUser;
     }
 }

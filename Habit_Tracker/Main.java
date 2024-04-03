@@ -49,10 +49,33 @@ public class Main {
             System.out.println("Enter new password: ");
             String password2 = scan.next();
             user.setPassword(password2);
-            // Changing the streak
-            user.streak = 2;
+            // Changing the getStreak()
+            user.setStreak(2);
             printUserInfo(user);
         }
+
+        System.out.println("Now you can find a task by its name,");
+        System.out.println("Would you like to search? (y/n)");
+        answer = scan.next().charAt(0);
+
+        if (answer == 'y') {
+            System.out.println("Please enter your task's name:");
+            String name = scan.next();
+            System.out.println(user.getTaskByName(name).getName());
+        }
+
+        System.out.println("Now you can find a task by its color,");
+        System.out.println("Would you like to search? (y/n)");
+        answer = scan.next().charAt(0);
+
+        if (answer == 'y') {
+            System.out.println("Please enter your task's color:");
+            String color = scan.next();
+            for (int i = 0; i < user.getTaskByColor(color).length; i++) {
+                System.out.println(user.getTaskByColor(color)[i].getName());
+            }
+        }
+
 
         printUserInfo(user);
 
@@ -62,8 +85,8 @@ public class Main {
 
     public static void printUserInfo(User user) {
         System.out.println("Username: " + user.getUsername() + "\nFull name: " + user.getFullName()
-                + "\nPassword: " + user.getPassword() + "\nEmail: " + user.email + "\nYou have been using the app for "
-                + user.streak + " days.");
+                + "\nPassword: " + user.getPassword() + "\nEmail: " + user.getEmail() + "\nYou have been using the app for "
+                + user.getStreak() + " days.");
         user.printUserTasks();
     }
 }

@@ -8,11 +8,11 @@ public class User {
     Scanner scan = new Scanner(System.in);
     private String username;
     private String password;
-    public String first_name;
-    public String last_name;
-    public String email;
-    public int streak;
-    public Task[] tasks = new Task[100];
+    private String first_name;
+    private String last_name;
+    private String email;
+    private int streak;
+    private Task[] tasks = new Task[100];
     private int taskCount = 0;
 
     public void setUsername(String username) {
@@ -44,13 +44,13 @@ public class User {
     public User(String username, String password, String first_name, String last_name, String email) {
         setUsername(username);
         setPassword(password);
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
+        setFirst_name(first_name);
+        setLast_name(last_name);
+        setEmailIfValid(email);
     }
 
     public String getFullName() {
-        return first_name + ' ' + last_name;
+        return first_name.concat(last_name);
     }
 
     public boolean isTaskRepetetive(String taskName) {
@@ -100,8 +100,102 @@ public class User {
             for (int i = 0; i < this.taskCount; i++) {
                 System.out.println(this.tasks[i].getName() + " - color: " + this.tasks[i].color);
             }
+        } else
+            System.out.println(this.first_name + " doesn't have any tasks yet!");
+    }
+
+    public Task getTaskByName(String name) {
+        boolean found = false;
+        for (int i = 0; i < taskCount ; i++) {
+            if (tasks[i].getName().compareTo(name) == 0) {
+                found = true;
+                return tasks[i];
+            }
         }
-        else System.out.println(this.first_name + " doesn't have any tasks yet!");
+
+        if (!found) {
+            System.out.println("The task doesn't exist!");
+        }
+        return null;
+    }
+
+    public Task[] getTaskByColor(String Color) {
+        boolean found = false;
+        int count = 0;
+        Task[] ans = new Task[100];
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks[i].color.compareTo(Color) == 0) {
+                found = true;
+                ans[count] = tasks[i];
+                count++;
+            }
+        }
+        if (found) {
+            return ans;
+        } else {
+            System.out.println("The task doesn't exist!");
+            return null;
+        }
+        
+    }
+
+    public void setFirst_name(String first_name) {
+        String newStr = "";
+        if (Utils.isLowerCase(first_name.charAt(0))) {
+            newStr = "" + (char) (first_name.charAt(0) - 32);
+        }
+        for (int i = 1; i < first_name.length(); i++) {
+            if (Utils.isLowerCase(first_name.charAt(i))) {
+                newStr += first_name.charAt(i);
+            } else if (Utils.isUpperCase(first_name.charAt(i))) {
+                newStr += (char) (first_name.charAt(i) + 32);
+            }
+        }
+        this.first_name = newStr;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setLast_name(String last_name) {
+        String newStr = "";
+        if (Utils.isLowerCase(last_name.charAt(0))) {
+            newStr = "" + (char) (last_name.charAt(0) - 32);
+        }
+        for (int i = 1; i < last_name.length(); i++) {
+            if (Utils.isLowerCase(last_name.charAt(i))) {
+                newStr += last_name.charAt(i);
+            } else if (Utils.isUpperCase(last_name.charAt(i))) {
+                newStr += (char) (last_name.charAt(i) + 32);
+            }
+        }
+        this.last_name = newStr;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public boolean setEmailIfValid(String email) {
+        if (Utils.isEmailValid(email)) {
+            this.email = email;
+            return true;
+        }
+        System.out.println("Invalid email!!");
+        return false;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setStreak(int streak) {
+        this.streak = streak;
+    }
+
+    public int getStreak() {
+        return streak;
     }
 
 }
