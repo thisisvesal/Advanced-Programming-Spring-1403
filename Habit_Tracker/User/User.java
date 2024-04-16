@@ -1,7 +1,10 @@
-package UserPackage;
+package User;
 
-import TaskPackage.*;
-import UtilityPackage.*;
+import Activity.Task;
+import Activity.ToDo;
+
+import Utility.Utils;
+
 import java.util.Scanner;
 
 public class User {
@@ -22,7 +25,7 @@ public class User {
     // If a valid password is given, it will be set and the method returns true
     // otherwise the password won't change and false is returned
     public boolean setPassword(String Password) {
-        if (Utils.isPasswordValid(Password)) {
+        if (isPasswordValid(Password)) {
             this.password = Password;
         } else {
             System.out.println("Invalid Password! At least one letter and one number should be used in it");
@@ -74,7 +77,7 @@ public class User {
             while (sw == 1) {
                 System.out.print("Enter the desired color in hexadecimal format : ");
                 ChooseColor = scan.next();
-                if (Task.isColorValid(ChooseColor) == true)
+                if (ToDo.isColorValid(ChooseColor) == true)
                     sw = 0;
                 else {
                     System.out.println(
@@ -98,7 +101,7 @@ public class User {
         if (this.taskCount > 0) {
             System.out.println("Tasks:");
             for (int i = 0; i < this.taskCount; i++) {
-                System.out.println(this.tasks[i].getName() + " - color: " + this.tasks[i].color);
+                System.out.println(this.tasks[i].getName() + " - color: " + this.tasks[i].getColor());
             }
         } else
             System.out.println(this.first_name + " doesn't have any tasks yet!");
@@ -124,7 +127,7 @@ public class User {
         int count = 0;
         Task[] ans = new Task[100];
         for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].color.compareTo(Color) == 0) {
+            if (tasks[i].getColor().compareTo(Color) == 0) {
                 found = true;
                 ans[count] = tasks[i];
                 count++;
@@ -196,6 +199,37 @@ public class User {
 
     public int getStreak() {
         return streak;
+    }
+
+    private boolean isPasswordValid(String password) {
+        boolean hasLetter = false;
+        boolean hasNumber = false;
+        for (int i = 0; i < password.length() && !(hasLetter && hasNumber); i++) {
+            if ('0' <= password.charAt(i) && password.charAt(i) <= '9') {
+                hasNumber = true;
+            }
+            else if ('a' <= password.charAt(i) && password.charAt(i) <= 'z') {
+                hasLetter = true;
+            }
+            else if ('A' <= password.charAt(i) && password.charAt(i) <= 'Z') {
+                hasLetter = true;
+            }
+        }
+
+        return (hasLetter && hasNumber);
+    }
+
+    public ToDo[] geToDosByColor(String color) {
+        ToDo[] ans = new ToDo[10];
+        int ansCount = 0;
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks[i].getColor() == color) {
+                ans[ansCount] = tasks[i];
+                ansCount++;
+            }
+        }
+
+        return ans;
     }
 
 }
