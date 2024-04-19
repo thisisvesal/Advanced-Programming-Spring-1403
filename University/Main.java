@@ -1,3 +1,6 @@
+// See this project on GitHub:
+// https://github.com/thisisvesal/Advanced-Programming-Spring-1403/tree/master/University
+
 import University.Course;
 import University.CourseType;
 import University.Faculty;
