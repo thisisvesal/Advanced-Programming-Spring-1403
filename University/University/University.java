@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import User.Student;
 
+// Singleton design
 public class University {
     private static University instance;
     public final ArrayList<Course> courses = new ArrayList<Course>();
@@ -16,6 +17,7 @@ public class University {
         this.name = name;
     }
 
+    // Pass university name as an argument here
     public static University getInstance(String name) {
         if (instance == null) {
             instance = new University(name);
@@ -42,6 +44,7 @@ public class University {
             return;
         }
         courses.add(course);
+        units.add(new ArrayList<Unit>());
     }
 
     public void addUnitToCourse(Course course, Unit unit) {

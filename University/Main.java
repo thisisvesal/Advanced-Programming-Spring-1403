@@ -11,8 +11,17 @@ import Utility.Utils;
 
 public class Main {
     public static void main(String[] args) {
+        String RESET = "\u001B[0m";
+        String RED = "\u001B[31m";
+        String GREEN = "\u001B[32m";
+        String YELLOW = "\u001B[33m";
+        String BLUE = "\u001B[34m";
+        String PURPLE = "\u001B[35m";
+
+        System.out.println(BLUE + "\n\nBuilding a university...");
         University university = University.getInstance("FUM");
 
+        System.out.println(GREEN + "\n\nCreating courses...");
         Course math1 = new Course("Math1", CourseType.CORE, 3);
         Course physics1 = new Course("Physics1", CourseType.CORE, 3);
         Course math2 = new Course("Math2", CourseType.CORE, 3);
@@ -31,6 +40,7 @@ public class Main {
         Unit dataUnit = new Unit(data);
         Unit engUnit = new Unit(english);
 
+        System.out.println(YELLOW + "\n\nCreating students...");
         Student st1 = new Student(402, Faculty.ENGINEERING);
         Student st2 = new Student(402, Faculty.ENGINEERING);
         Student st3 = new Student(402, Faculty.ENGINEERING);
@@ -40,6 +50,7 @@ public class Main {
         Student st7 = new Student(402, Faculty.ENGINEERING);
         Student st8 = new Student(402, Faculty.ENGINEERING);
 
+        System.out.println(RED + "\n\nAdding students to university...");
         university.addStudent(st1);
         university.addStudent(st2);
         university.addStudent(st3);
@@ -49,6 +60,7 @@ public class Main {
         university.addStudent(st7);
         university.addStudent(st8);
 
+        System.out.println(PURPLE + "\n\nAdding courses to university...");
         university.addCourse(ap);
         university.addCourse(fop);
         university.addCourse(math1);
@@ -58,6 +70,7 @@ public class Main {
         university.addCourse(data);
         university.addCourse(english);
 
+        
         university.addUnitToCourse(ap, apUnit);
         university.addUnitToCourse(fop, fopUnit);
         university.addUnitToCourse(math1, math1Unit);
@@ -67,8 +80,10 @@ public class Main {
         university.addUnitToCourse(data, dataUnit);
         university.addUnitToCourse(english, engUnit);
 
+        System.out.println(BLUE + "\n\nTESTING UNIVERSITY COURSE INFO");
         university.printAllCourses();
 
+        System.out.println(GREEN + "\n\nTESTING STUDENT ENROLLMENT");
         st1.enrollIn(apUnit);
         st1.enrollIn(fopUnit);
         st1.enrollIn(math1Unit);
@@ -86,20 +101,23 @@ public class Main {
         st7.enrollIn(engUnit);
         st7.printReservedCourses();
 
-
+        System.out.println(YELLOW + "\n\nENROLLED COURSES VERIFICATION");
         st1.printEnrolledCourses();
 
+        System.out.println(RED + "\n\nTESTING COURSE DELETION");
         st1.deleteCourse();
 
+        System.out.println(PURPLE + "\n\nENROLLED COURSES VERIFICATION");
         st1.printEnrolledCourses();
 
+        System.out.println(BLUE + "\n\nFULL COURSE SELECTION TESTING");
         st1.selectCourse();
 
+        System.out.println(GREEN + "\n\nENROLLED COURSES VERIFICATION");
         st1.printEnrolledCourses();
 
+        System.out.println(RESET + "\n\nUNIVERSITY STUDENT LIST");
         university.printStudentList();
-
-        
 
         Utils.scanner.close();
     }
