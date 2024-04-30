@@ -3,6 +3,7 @@ package Frames;
 import People.Person;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,24 +24,24 @@ public class LoginPage extends JPanel {
         loginPanel.setBackground(Color.WHITE);
         loginPanel.setBounds(410, 210, 400, 380);
 
-        JTextField UserName = new JTextField();
+        PlaceholderTextField UserName = new PlaceholderTextField("");
         UserName.setPreferredSize(new Dimension(240, 40));
         UserName.setBounds(30, 40, 340, 40);
         UserName.setFont(new Font("Consolas", Font.PLAIN, 15));
         UserName.setForeground(Color.BLACK);
         UserName.setBackground(Color.WHITE);
         UserName.setCaretColor(Color.BLACK);
-        UserName.setText("User name ");
+        UserName.setPlaceholder("Username");
         loginPanel.add(UserName);
 
-        JTextField Password = new JTextField();
+        PlaceholderTextField Password = new PlaceholderTextField("");
         Password.setPreferredSize(new Dimension(240, 40));
         Password.setBounds(30, 100, 340, 40);
         Password.setFont(new Font("Consolas", Font.PLAIN, 15));
         Password.setForeground(Color.BLACK);
         Password.setBackground(Color.WHITE);
         Password.setCaretColor(Color.BLACK);
-        Password.setText("Password ");
+        Password.setPlaceholder("Password");
         loginPanel.add(Password);
 
         JLabel ForgetPassLabel = new JLabel();

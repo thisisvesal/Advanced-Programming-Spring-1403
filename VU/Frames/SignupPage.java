@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class SignupPage extends JPanel {
     private static SignupPage instance;
-    JTextField[] field = new JTextField[10];
+    PlaceholderTextField[] field = new PlaceholderTextField[10];
     String[] menu = new String[] { "Name", "lastname", "Field of study", "EducationalID", "Phone number", "Email",
             "UserName", "Password", "Repeat the password" };
     boolean TheProfessor = false, TheStudent = false, TheOfficials = false;
@@ -34,14 +34,16 @@ public class SignupPage extends JPanel {
         SignupPanel.add(text);
         int y = 80;
         for (int i = 0; i < 9; i++) {
-            field[i] = new JTextField();
+            field[i] = new PlaceholderTextField("");
+            field[i].setPlaceholder(menu[i]);
+            field[i].setColumns(20);
             field[i].setPreferredSize(new Dimension(240, 40));
             field[i].setBounds(75, y, 350, 40);
             field[i].setFont(new Font("Consolas", Font.PLAIN, 15));
             field[i].setForeground(Color.BLACK);
             field[i].setBackground(Color.WHITE);
             field[i].setCaretColor(Color.BLACK);
-            field[i].setText(menu[i]);
+            // field[i].setText(menu[i]);
             SignupPanel.add(field[i]);
             y += 50;
         }
@@ -94,7 +96,7 @@ public class SignupPage extends JPanel {
 
         JButton submit = new JButton();
         submit.setText("Submit");
-        submit.setBounds(210, 600, 80, 80);
+        submit.setBounds(260, 600, 80, 80);
         SignupPanel.add(submit);
         submit.addActionListener(new ActionListener() {
             @Override
@@ -129,7 +131,17 @@ public class SignupPage extends JPanel {
             }
         });
 
-        this.setVisible(true);
+        JButton backButton = new JButton();
+        backButton.setText("Back");
+        backButton.setBounds(160, 600, 80, 80);
+        SignupPanel.add(backButton);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SignupPage.instance.setVisible(false);
+                LoginPage.getInstance().setVisible(true);
+            }
+        });
     }
 
     public static SignupPage getInstance() {
