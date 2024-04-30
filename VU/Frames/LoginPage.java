@@ -9,12 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LoginPage extends JPanel {
-    // public final LoginPage loginPage = LoginPage.getInstance();
     private static LoginPage instance;
     public static boolean ForgetPass = false;
 
     private LoginPage() {
-        // JFrame jFrame = new JFrame();
         this.setPreferredSize(new Dimension(1220, 800));
         this.setLayout(null);
         this.setBackground(MainFrame.themeColor);
