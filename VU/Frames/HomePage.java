@@ -45,10 +45,14 @@ public class HomePage extends JPanel {
 
         generalPanel.add(new ClockPane());
 
-        announcementPanel.setPreferredSize(new Dimension(244, 500));
+        announcementPanel.setPreferredSize(new Dimension(244, 420));
         announcementPanel.setBackground(MainFrame.themeColor);
         announcementList.addElement("This is an announcement");
         generalPanel.add(announcementPanel);
+
+        JButton homeButton = new JButton("Home");
+        homeButton.setPreferredSize(new Dimension(244, 70));
+        generalPanel.add(homeButton);
 
         // Test line:
         generalPanel.setBackground(Color.red);
