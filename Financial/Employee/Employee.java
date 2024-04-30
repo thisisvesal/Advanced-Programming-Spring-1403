@@ -20,7 +20,7 @@ public abstract class Employee {
     public abstract boolean isElligibleForBonus();
 
     public void printInfo() {
-        System.out.println("Employee info:");
+        System.out.println("\nEmployee info:");
         System.out.println("Name: " + name);
         System.out.println("Age: " + age);
         System.out.println("Base salary: " + salary);

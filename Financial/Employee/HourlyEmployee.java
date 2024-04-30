@@ -4,6 +4,12 @@ public class HourlyEmployee extends Employee {
     double hours;
     double hourlyRate;
 
+    public HourlyEmployee(String name, int salary, int age, int yearsOfService, double hours, double hourlyRate) {
+        super(name, salary, age, yearsOfService);
+        setHours(hours);
+        setHourlyRate(hourlyRate);
+    }
+
     @Override
     public double calculatePay() {
         return super.calculatePay() + (hourlyRate * hours);
