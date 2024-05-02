@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -44,7 +45,10 @@ public class HomePage extends GeneralPage {
         person.taskBoxes.add(new JCheckBox("Your task"));
         for (JCheckBox taskBox : person.taskBoxes) {
             taskBox.setFocusable(false);
-            taskBox.setOpaque(false);
+            taskBox.setBackground(Color.white);
+            taskBox.setOpaque(true);
+            taskBox.setIcon(new ImageIcon("icons/checkboxes/unchecked.png"));
+            taskBox.setSelectedIcon(new ImageIcon("icons/checkboxes/checked.png"));
             taskBox.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
             taskPanel.add(taskBox);
         }

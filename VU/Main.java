@@ -15,9 +15,9 @@ public class Main {
     mathButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        Question q = new MultipleChoice("How u doin?");
-        ((MultipleChoice)q).addOption("Fine");
-        ((MultipleChoice)q).addOption("Not fine");
+        Question q = new LongAnswer("How u doin?");
+        // ((MultipleChoice)q).addOption("Fine");
+        // ((MultipleChoice)q).addOption("Not fine");
         QuestionPage.getInstance().addQuestion(q);
         MainFrame.getMainFrame().add(QuestionPage.getInstance());
         HomePage.getInstance().setVisible(false);
