@@ -1,0 +1,47 @@
+package Questions;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Frames.MainFrame;
+
+public abstract class Question extends JPanel {
+    public final JPanel promptPane = new JPanel();
+    public final JPanel answerSheet = new JPanel();
+    JLabel prompt;
+
+    public Question(String prompt) {
+        setPrompt(prompt);
+        this.prompt.setFont(new Font("Tahoma", Font.PLAIN, 30));
+
+        answerSheet.setBackground(Color.white);
+        answerSheet.setPreferredSize(new Dimension(910, 520));
+        designAnswerSheet();
+    
+        promptPane.setBackground(Color.white);
+        promptPane.setPreferredSize(new Dimension(910, 170));
+        promptPane.setLayout(new FlowLayout(FlowLayout.LEFT, 20 , 10));
+        promptPane.add(this.prompt);
+        
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
+        this.setPreferredSize(new Dimension(945, 780));
+        this.setBackground(MainFrame.themeColor);
+        this.add(promptPane);
+        this.add(answerSheet);
+    }
+
+    public Question() {
+        this("");
+    }
+
+    public abstract void designAnswerSheet();
+
+    public void setPrompt(String prompt) {
+        this.prompt = new JLabel(prompt);
+    }
+}

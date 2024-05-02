@@ -1,0 +1,32 @@
+package Frames;
+
+import java.awt.CardLayout;
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
+
+import Questions.Question;
+
+public class QuestionPage extends GeneralPage {
+    private static QuestionPage instance;
+    public final JPanel questionPanel = new JPanel();
+    private QuestionPage() {
+        super();
+        questionPanel.setPreferredSize(new Dimension(950, 795));
+        questionPanel.setOpaque(false);
+        questionPanel.setLayout(new CardLayout());
+        questionPanel.setBackground(MainFrame.themeColor);
+        this.add(questionPanel);
+    }
+
+    public void addQuestion(Question question) {
+        questionPanel.add(question);
+    }
+
+    public static QuestionPage getInstance() {
+        if (instance == null) {
+            instance = new QuestionPage();
+        }
+        return instance;
+    }
+}

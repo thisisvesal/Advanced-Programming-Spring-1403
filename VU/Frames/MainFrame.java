@@ -23,7 +23,6 @@ public class MainFrame extends JFrame {
         this.setSize(1220, 800);
         this.setResizable(true);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
         this.setLayout(layout);
         this.add(loginPage);
         this.add(signupPage);

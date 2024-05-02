@@ -66,13 +66,12 @@ public class LoginPage extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                // Password.setEditable(false);
-                // UserName.setEditable(false);
                 if (Person.personExists(UserName.getText(), Password.getText())) {
                     Person user = Person.findPerson(UserName.getText(), Password.getText());
                     Person.setCurrentUser(user);
                     
-                    HomePage.getInstance().setUpHomePageFor(user);
+                    HomePage.getInstance().setUpPageFor(user);
+                    QuestionPage.getInstance().setUpGeneralPanelFor(user);
 
                     LoginPage.getInstance().setVisible(false);
                     HomePage.getInstance().setVisible(true);
