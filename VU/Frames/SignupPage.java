@@ -6,6 +6,9 @@ import People.Professor;
 import People.Student;
 
 import javax.swing.*;
+
+import Graphics.PlaceholderTextField;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
