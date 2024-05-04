@@ -3,7 +3,6 @@ package Questions;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -13,7 +12,6 @@ import javax.swing.JPanel;
 import Frames.CoursePage;
 import Frames.ExamPage;
 import Frames.HomeWorkPage;
-import Frames.MainFrame;
 import People.Student;
 
 public class Course extends JPanel {
