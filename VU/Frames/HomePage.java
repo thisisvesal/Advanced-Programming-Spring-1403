@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Graphics.ButtonLayout;
 import People.Person;
 import People.Professor;
 
@@ -21,11 +23,14 @@ public class HomePage extends GeneralPage {
     // To be added from left to right
     public final JPanel classList = new JPanel();
     public final JPanel taskPanel = new JPanel();
+    public final GridBagConstraints constraints = new GridBagConstraints();
 
     private HomePage() {
         super();
         classList.setBackground(MainFrame.themeColor);
         classList.setPreferredSize(new Dimension(470, 790));
+        classList.setLayout(new ButtonLayout(ButtonLayout.Alignment.VERTICAL, ButtonLayout.Anchor.LEADING));
+
         classList.add(new JLabel("CLASS LIST"));
 
         taskPanel.setBackground(MainFrame.themeColor);
