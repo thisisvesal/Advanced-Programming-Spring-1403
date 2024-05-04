@@ -111,18 +111,23 @@ public class SignupPage extends JPanel {
                 } else {
                     Person user;
                     if (TheProfessor)
-                        user = new Professor(field[0].getText(), field[1].getText(), field[2].getText(), field[3].getText(),
+                        user = new Professor(field[0].getText(), field[1].getText(), field[2].getText(),
+                                field[3].getText(),
                                 field[4].getText(), field[5].getText(), field[6].getText(), field[7].getText());
                     else if (TheStudent)
-                        user = new Student(field[0].getText(), field[1].getText(), field[2].getText(), field[3].getText(),
+                        user = new Student(field[0].getText(), field[1].getText(), field[2].getText(),
+                                field[3].getText(),
                                 field[4].getText(), field[5].getText(), field[6].getText(), field[7].getText());
                     else
-                        user = new Officials(field[0].getText(), field[1].getText(), field[2].getText(), field[3].getText(),
+                        user = new Officials(field[0].getText(), field[1].getText(), field[2].getText(),
+                                field[3].getText(),
                                 field[4].getText(), field[5].getText(), field[6].getText(), field[7].getText());
                     if (signupSuccessful) {
                         Person.addPerson(user);
-                        JOptionPane.showOptionDialog(MainFrame.getMainFrame(), "You were signed up successfully", "Success",
-                            JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+                        JOptionPane.showOptionDialog(MainFrame.getMainFrame(), "You were signed up successfully",
+                                "Success",
+                                JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" },
+                                "OK");
                         signupSuccessful = false;
                         SignupPage.getInstance().setVisible(false);
                         LoginPage.getInstance().setVisible(true);

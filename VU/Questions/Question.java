@@ -15,7 +15,7 @@ public abstract class Question extends JPanel {
     public final JPanel answerSheet = new JPanel();
     JLabel prompt;
 
-    public Question(String prompt) {
+    public Question(String prompt, Course course) {
         setPrompt(prompt);
         this.prompt.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
@@ -35,8 +35,8 @@ public abstract class Question extends JPanel {
         this.add(answerSheet);
     }
 
-    public Question() {
-        this("");
+    public Question(Course course) {
+        this("", course);
     }
 
     public abstract void designAnswerSheet();

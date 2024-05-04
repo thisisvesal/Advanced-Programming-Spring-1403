@@ -27,8 +27,12 @@ public class GeneralPage extends JPanel {
 
     public GeneralPage() {
         Font labelFont = nameLabel.getFont();
-        nameLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 20));
+        nameLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 30));
         idLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 20));
+        nameLabel.setOpaque(true);
+        idLabel.setOpaque(true);
+        nameLabel.setBackground(Color.white);
+        idLabel.setBackground(Color.white);
 
         profilePanel.add(nameLabel);
         profilePanel.add(idLabel);
@@ -45,6 +49,7 @@ public class GeneralPage extends JPanel {
 
         JButton homeButton = new JButton("Home");
         homeButton.setFocusable(false);
+        homeButton.setBackground(Color.white);
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,8 +57,21 @@ public class GeneralPage extends JPanel {
                 HomePage.getInstance().setVisible(true);
             }
         });
-        homeButton.setPreferredSize(new Dimension(244, 70));
+        homeButton.setPreferredSize(new Dimension(117, 70));
         generalPanel.add(homeButton);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFocusable(false);
+        logoutButton.setBackground(Color.white);
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((JButton)e.getSource()).getParent().getParent().setVisible(false);
+                LoginPage.getInstance().setVisible(true);
+            }
+        });
+        logoutButton.setPreferredSize(new Dimension(117, 70));
+        generalPanel.add(logoutButton);
 
         // Test line:
         generalPanel.setBackground(Color.red);
@@ -65,6 +83,12 @@ public class GeneralPage extends JPanel {
         this.add(generalPanel);
         this.setBackground(Color.white);
     }
+
+    public void addAnnouncement(String txt){
+        announcementList.addElement(txt);
+        //generalPanel.add(announcementPanel);
+    }
+
 
     public void setUpGeneralPanelFor(Person person) {
         nameLabel.setText(person.getFullName());

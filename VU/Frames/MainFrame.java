@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainFrame extends JFrame {
     private static MainFrame mainFrame;
@@ -13,6 +14,12 @@ public class MainFrame extends JFrame {
     public final LoginPage loginPage = LoginPage.getInstance();
     public final SignupPage signupPage = SignupPage.getInstance();
     public final CardLayout layout = new CardLayout();
+    public final CoursePage coursePage = CoursePage.getInstance();
+    public final HomeWorkPage homeWorkPage = HomeWorkPage.getInstance();
+    public final QuestionPage questionPage = QuestionPage.getInstance();
+    public final ProfessorCoursePage professorCoursePage = ProfessorCoursePage.getInstance();
+    public final ExamPage examPage = ExamPage.getInstance();
+    private JPanel[] pages = {HomePage.getInstance(), LoginPage.getInstance(), SignupPage.getInstance(), CoursePage.getInstance(), HomeWorkPage.getInstance(), QuestionPage.getInstance(), ProfessorCoursePage.getInstance()};
 
     private MainFrame() {
         ImageIcon appIcon = new ImageIcon("icons/appIcon.png");
@@ -24,14 +31,14 @@ public class MainFrame extends JFrame {
         this.setResizable(true);
         this.setLocationRelativeTo(null);
         this.setLayout(layout);
-        this.add(loginPage);
-        this.add(signupPage);
-        this.add(homePage);
+
+        for (JPanel page : pages) {
+            this.add(page);
+            page.setVisible(false);
+        }
 
         loginPage.setVisible(true);
-        signupPage.setVisible(false);
-        homePage.setVisible(false);
-
+        
         this.setVisible(true);
     }
 

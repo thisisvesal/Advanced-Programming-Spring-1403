@@ -9,12 +9,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class LongAnswer extends Question {
-    public LongAnswer(String prompt) {
-        super(prompt);
+    public LongAnswer(String prompt, Course course) {
+        super(prompt, course);
     }
 
-    public LongAnswer() {
-        super();
+    public LongAnswer(Course course) {
+        super(course);
     }
 
     @Override
@@ -22,17 +22,14 @@ public class LongAnswer extends Question {
         answerSheet.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         answerSheet.setOpaque(false);
 
-        JTextArea answerField = new JTextArea();
-        answerField.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
-        answerField.setPreferredSize(new Dimension(890, 450));
-        answerField.setLineWrap(true);
-        JScrollPane scroll = new JScrollPane(answerField);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JTextArea textArea = new JTextArea(17, 49);
+        textArea.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         JButton submitButton = new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(100, 30));
-        answerSheet.add(scroll);
+        answerSheet.add(scrollPane);
         answerSheet.add(submitButton);
     }
 }

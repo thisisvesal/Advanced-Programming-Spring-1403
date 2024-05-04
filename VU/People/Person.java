@@ -206,12 +206,7 @@ public abstract class Person {
     }
 
     public static Person getCurrentUser() {
-        // Actual code:
         return currentUser;
-
-        // Sample:
-        // return new Student("Strawberry", "Shortcake", "Collinary", "4021262437", "09021234567", "strawberry@sck.com",
-        //        "username", "passwordddd");
     }
     
     public static void setCurrentUser(Person currentUser) {

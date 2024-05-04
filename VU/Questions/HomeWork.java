@@ -1,7 +1,7 @@
 package Questions;
 
 import Clock.ClockCountdown;
-import Frames.ExamPage;
+import Frames.HomeWorkPage;
 import Frames.MainFrame;
 import Frames.QuestionPage;
 
@@ -12,26 +12,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
-public class Exam extends JPanel {
+public class HomeWork extends JPanel {
     public final ArrayList<Question> questions = new ArrayList<>();
-    private JPanel examStatus, deadLine, scoreStatus, courseName;
-    public JLabel examIcon, status, score, Name;
+    private JPanel homeWorkStatus, deadLine, scoreStatus, courseName;
+    public JLabel homeWorkIcon, status, score, Name;
     public Object[][] answers = new Object[60][];
 
-    public Exam(Course course) {
+    public HomeWork(Course course) {
         this.setPreferredSize(new Dimension(940, 790));
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setBackground(MainFrame.themeColor);
         this.setOpaque(true);
 
-        this.examIcon = new JLabel();
-        this.examIcon.setIcon(new ImageIcon("icons/exam.png"));
-        this.examIcon.addMouseListener(new MouseAdapter() {
+        this.homeWorkIcon = new JLabel();
+        this.homeWorkIcon.setIcon(new ImageIcon("icons/homework.png"));
+        this.homeWorkIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 super.mouseClicked(e);
                 MainFrame.getMainFrame().coursePage.setVisible(false);
-                MainFrame.getMainFrame().examPage.setVisible(true);
+                MainFrame.getMainFrame().homeWorkPage.setVisible(true);
             }
         });
 
@@ -49,14 +49,14 @@ public class Exam extends JPanel {
         box.setOpaque(false);
         this.add(box);
 
-        examStatus = new JPanel();
-        examStatus.setPreferredSize(new Dimension(600, 50));
-        examStatus.setLayout(new FlowLayout(FlowLayout.LEFT));
+        homeWorkStatus = new JPanel();
+        homeWorkStatus.setPreferredSize(new Dimension(600, 50));
+        homeWorkStatus.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         status = new JLabel();
-        status.setText("Status: Not uploaded");
-        examStatus.add(status);
-        this.add(examStatus);
+        status.setText("Status: Not loaded");
+        homeWorkStatus.add(status);
+        this.add(homeWorkStatus);
 
         scoreStatus = new JPanel();
         scoreStatus.setPreferredSize(new Dimension(600, 50));
@@ -94,14 +94,14 @@ public class Exam extends JPanel {
         viewQuestionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ExamPage.getInstance().setVisible(false);
+                HomeWorkPage.getInstance().setVisible(false);
                 MainFrame.getMainFrame().add(QuestionPage.getInstance());
                 QuestionPage.getInstance().setVisible(true);
             }
         });
 
         this.add(viewQuestionsButton, BorderLayout.CENTER);
-        course.addExam(this);
+        course.addHomeWork(this);
     }
 
     public void addQuestion(Question question) {

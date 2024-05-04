@@ -22,18 +22,17 @@ public class HomePage extends GeneralPage {
     public final JPanel classList = new JPanel();
     public final JPanel taskPanel = new JPanel();
 
-
     private HomePage() {
         super();
         classList.setBackground(MainFrame.themeColor);
         classList.setPreferredSize(new Dimension(470, 790));
         classList.add(new JLabel("CLASS LIST"));
-        
+
         taskPanel.setBackground(MainFrame.themeColor);
         taskPanel.setPreferredSize(new Dimension(470, 790));
 
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
-        
+
         this.add(classList);
         this.add(taskPanel);
         this.setBackground(Color.white);
@@ -58,7 +57,7 @@ public class HomePage extends GeneralPage {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ((Professor)person).editClassInfo();
+                        ((Professor) person).editClassInfo();
                     }
                 });
             }
