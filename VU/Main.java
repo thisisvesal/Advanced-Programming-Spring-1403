@@ -29,7 +29,7 @@ public class Main {
     MainFrame mainFrame = MainFrame.getMainFrame();
     Course math = new Course();
     HomeWork h = new HomeWork(math);
-    Question q = new LongAnswer("How u doin?", math);
+    Question q = new LongAnswer("How u doin?", h);
     
     h.addQuestion(q);
 

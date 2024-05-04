@@ -9,12 +9,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class LongAnswer extends Question {
-    public LongAnswer(String prompt, Course course) {
-        super(prompt, course);
-    }
 
-    public LongAnswer(Course course) {
-        super(course);
+    public LongAnswer(String prompt, HomeWork homeWork) {
+        super(prompt, homeWork);
+    }
+    public LongAnswer(HomeWork homeWork) {
+        super(homeWork);
+    }
+    public LongAnswer(String prompt, Exam exam) {
+        super(prompt, exam);
+    }
+    public LongAnswer(Exam exam) {
+        super(exam);
     }
 
     @Override

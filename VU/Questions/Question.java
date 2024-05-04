@@ -15,7 +15,7 @@ public abstract class Question extends JPanel {
     public final JPanel answerSheet = new JPanel();
     JLabel prompt;
 
-    public Question(String prompt, Course course) {
+    public Question(String prompt, HomeWork homeWork) {
         setPrompt(prompt);
         this.prompt.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
@@ -35,8 +35,32 @@ public abstract class Question extends JPanel {
         this.add(answerSheet);
     }
 
-    public Question(Course course) {
-        this("", course);
+    public Question(HomeWork homeWork) {
+        this("", homeWork);
+    }
+
+    public Question(String prompt, Exam exam) {
+        setPrompt(prompt);
+        this.prompt.setFont(new Font("Tahoma", Font.PLAIN, 30));
+
+        answerSheet.setBackground(Color.white);
+        answerSheet.setPreferredSize(new Dimension(910, 520));
+        designAnswerSheet();
+    
+        promptPane.setBackground(Color.white);
+        promptPane.setPreferredSize(new Dimension(910, 170));
+        promptPane.setLayout(new FlowLayout(FlowLayout.LEFT, 20 , 10));
+        promptPane.add(this.prompt);
+        
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
+        this.setPreferredSize(new Dimension(945, 780));
+        this.setBackground(MainFrame.themeColor);
+        this.add(promptPane);
+        this.add(answerSheet);
+    }
+
+    public Question(Exam exam) {
+        this("", exam);
     }
 
     public abstract void designAnswerSheet();

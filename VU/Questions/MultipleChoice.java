@@ -12,12 +12,19 @@ public class MultipleChoice extends Question {
     public final ArrayList<JRadioButton> options = new ArrayList<>();
     private final ButtonGroup bg = new ButtonGroup();
 
-    public MultipleChoice(String prompt, Course course) {
-        super(prompt, course);
+    public MultipleChoice(String prompt, HomeWork homeWork) {
+        super(prompt, homeWork);
     }
-    public MultipleChoice(Course course) {
-        super(course);
+    public MultipleChoice(HomeWork homeWork) {
+        super(homeWork);
     }
+    public MultipleChoice(String prompt, Exam exam) {
+        super(prompt, exam);
+    }
+    public MultipleChoice(Exam exam) {
+        super(exam);
+    }
+
     public void addOption(String option) {
         JRadioButton newOption = new JRadioButton(option);
         newOption.setFocusable(false);
