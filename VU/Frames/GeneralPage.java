@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import Graphics.ButtonLayout;
 import People.Person;
 
 public class GeneralPage extends JPanel {
@@ -34,6 +35,7 @@ public class GeneralPage extends JPanel {
         nameLabel.setBackground(Color.white);
         idLabel.setBackground(Color.white);
 
+        profilePanel.setLayout(new ButtonLayout(ButtonLayout.Alignment.VERTICAL, ButtonLayout.Anchor.CENTER));
         profilePanel.add(nameLabel);
         profilePanel.add(idLabel);
         profilePanel.setPreferredSize(new Dimension(244, 200));

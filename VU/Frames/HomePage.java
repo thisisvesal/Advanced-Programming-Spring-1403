@@ -57,15 +57,17 @@ public class HomePage extends GeneralPage {
             taskPanel.add(taskBox);
         }
         for (JButton button : person.classList) {
+            button.setBackground(Color.white);
+            button.setFocusable(false);
             classList.add(button);
-            if (person instanceof Professor) {
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ((Professor) person).editClassInfo();
-                    }
-                });
-            }
+            // if (person instanceof Professor) {
+            //     button.addActionListener(new ActionListener() {
+            //         @Override
+            //         public void actionPerformed(ActionEvent e) {
+            //             ((Professor) person).editClassInfo();
+            //         }
+            //     });
+            // }
         }
     }
 
