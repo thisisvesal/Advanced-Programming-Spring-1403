@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Person {
-    private static ArrayList<Person> people = new ArrayList<>();
+    public static final ArrayList<Person> people = new ArrayList<>();
     String name, lastName, FieldOfStudy, UserName, Password, phoneNumber, email, ID;
     public static int personCounter;
     static Person currentUser;

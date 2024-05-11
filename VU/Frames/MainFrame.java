@@ -17,9 +17,8 @@ public class MainFrame extends JFrame {
     public final CoursePage coursePage = CoursePage.getInstance();
     public final HomeWorkPage homeWorkPage = HomeWorkPage.getInstance();
     public final QuestionPage questionPage = QuestionPage.getInstance();
-    public final ProfessorCoursePage professorCoursePage = ProfessorCoursePage.getInstance();
     public final ExamPage examPage = ExamPage.getInstance();
-    private JPanel[] pages = {HomePage.getInstance(), LoginPage.getInstance(), SignupPage.getInstance(), CoursePage.getInstance(), HomeWorkPage.getInstance(), QuestionPage.getInstance(), ProfessorCoursePage.getInstance()};
+    private JPanel[] pages = {HomePage.getInstance(), LoginPage.getInstance(), SignupPage.getInstance(), CoursePage.getInstance(), HomeWorkPage.getInstance(), QuestionPage.getInstance()};
 
     private MainFrame() {
         ImageIcon appIcon = new ImageIcon("icons/appIcon.png");
