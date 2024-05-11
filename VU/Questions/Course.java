@@ -17,8 +17,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import org.w3c.dom.events.MouseEvent;
-
 import Frames.CoursePage;
 import Frames.ExamPage;
 import Frames.HomeWorkPage;
