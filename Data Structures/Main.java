@@ -13,7 +13,14 @@ public class Main {
         queue.pop();
         System.out.println("Queue after pop:");
         queue.printArray();
-
+        queue.add(4);
+        queue.add(9);
+        queue.add(6);
+        System.out.println("Queue after adding more items:");
+        queue.printArray();
+        queue.pop();
+        queue.pop();
+        queue.pop();
         System.out.println("");
 
         System.out.println("Initializing HodHod, k = 3");
