@@ -23,8 +23,6 @@ public class Main {
     Person.addPerson(ginna);
 
     // Initializing the mainframe
-    MainFrame.getMainFrame();
-
     MainFrame mainFrame = MainFrame.getMainFrame();
     Course math = new Course();
     HomeWork h = new HomeWork(math);
