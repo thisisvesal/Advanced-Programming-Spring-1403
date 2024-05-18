@@ -70,6 +70,7 @@ public class LoginPage extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (Person.personExists(UserName.getText(), Password.getText())) {
+                    HomePage.getInstance().removeAll();
                     Person user = Person.findPerson(UserName.getText(), Password.getText());
                     Person.setCurrentUser(user);
                     user.setHome(new Home(user));

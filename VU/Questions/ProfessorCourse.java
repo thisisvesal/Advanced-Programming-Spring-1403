@@ -26,7 +26,8 @@ public class ProfessorCourse extends Course {
     JPopupMenu popupMenu;
     JMenuItem[] menuItems = new JMenuItem[8];
 
-    public ProfessorCourse() {
+    public ProfessorCourse(String name) {
+        super(name);
         this.setPreferredSize(new Dimension(940, 790));
         // this.setLayout(null);
         this.setLayout(new FlowLayout(FlowLayout.LEFT));

@@ -44,7 +44,7 @@ public class Course extends JPanel {
         field.setCaretColor(Color.BLACK);
     }
 
-    public Course() {
+    public Course(String name) {
         this.setBackground(Color.lightGray);
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setPreferredSize(new Dimension(940, 790));
@@ -55,7 +55,7 @@ public class Course extends JPanel {
         courseNamePanel.setLayout(new BorderLayout());
 
         CourseNameLabel = new JLabel();
-        CourseNameLabel.setText("CourseName");
+        CourseNameLabel.setText(name);
         courseNamePanel.add(CourseNameLabel, BorderLayout.CENTER);
         this.add(courseNamePanel);
 
@@ -97,7 +97,8 @@ public class Course extends JPanel {
             examsPanel.add(exam.examIcon);
         }
 
-        CoursePage.getInstance().addCourse(this);
+        // CoursePage coursePage = CoursePage.getInstance();
+        // coursePage.addCourse(this);
 
         if (Person.getCurrentUser() instanceof Professor) {
             courseMaterialPanel.setPreferredSize(new Dimension(920, 170));

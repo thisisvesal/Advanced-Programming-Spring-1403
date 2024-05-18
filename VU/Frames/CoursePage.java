@@ -11,6 +11,7 @@ public class CoursePage extends JPanel {
     private static CoursePage instance;
     JPanel generalPanel, announcementPanel;
     public final JPanel coursePanel = new JPanel(new CardLayout());
+    private Course currentVisibleCourse;
 
     private CoursePage() {
         super();
@@ -59,6 +60,18 @@ public class CoursePage extends JPanel {
 
     public void addCourse(Course course) {
         this.coursePanel.add(course);
+    }
+
+    public void setCurrentVisibleCourse(Course course) {
+        if (currentVisibleCourse != null) {
+            this.currentVisibleCourse.setVisible(false);
+        }
+        this.currentVisibleCourse = course;
+        course.setVisible(true);
+    }
+
+    public Course getCurrentVisibleCourse() {
+        return currentVisibleCourse;
     }
 
 }
