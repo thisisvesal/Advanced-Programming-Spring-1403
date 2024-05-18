@@ -15,11 +15,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import Frames.*;
 
 import Graphics.ButtonLayout;
+import Graphics.PlaceholderTextField;
 import People.Person;
 import People.Professor;
 
@@ -65,8 +65,9 @@ public class Home extends GeneralPage {
                     dialog.setSize(300, 150);
                     dialog.setLayout(new FlowLayout());
 
-                    // Create a JTextField
-                    JTextField textField = new JTextField(20);
+                    // Create a PlaceholderTextField
+                    PlaceholderTextField textField = new PlaceholderTextField(20);
+                    textField.setPlaceholder("Course name...");
                     dialog.add(textField);
 
                     // Create a JButton

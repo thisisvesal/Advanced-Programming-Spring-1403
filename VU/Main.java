@@ -1,13 +1,7 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import Frames.*;
 import People.Person;
 import People.Professor;
 import People.Student;
-import Questions.*;
 
 public class Main {
   public static void main(String[] args) {
