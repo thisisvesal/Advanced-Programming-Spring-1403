@@ -2,6 +2,7 @@ package People;
 
 import Frames.LoginPage;
 import Frames.SignupPage;
+import Questions.Home;
 
 import javax.swing.*;
 
@@ -10,12 +11,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Person {
-    public static final ArrayList<Person> people = new ArrayList<>();
+    public static ArrayList<Person> people = new ArrayList<>();
     String name, lastName, FieldOfStudy, UserName, Password, phoneNumber, email, ID;
     public static int personCounter;
     static Person currentUser;
     public final ArrayList<JCheckBox> taskBoxes = new ArrayList<>();
     public final ArrayList<JButton> classList = new ArrayList<>();
+    private Home home;
 
     public Person(String name, String lastName, String FieldOfStudy, String ID, String phoneNumber,
             String email, String UserName, String Password) {
@@ -93,8 +95,8 @@ public abstract class Person {
             }
             // THIS WILL NEVER BE SATISFIED
             // else if (!person.Password.equals(password) && person.ID.equals(ID)) {
-            //     LoginPage.ForgetPass = true;
-            //     return false;
+            // LoginPage.ForgetPass = true;
+            // return false;
             // }
         }
         JOptionPane.showOptionDialog(LoginPage.getInstance(), "No such user found!", "Warning",
@@ -145,7 +147,7 @@ public abstract class Person {
     }
 
     protected boolean isUserNameValid(String UserName) {
-        String regex = "^[a-zA-Z0-9]{5,12}$";
+        String regex = "^[a-zA-Z0-9]{1,12}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(UserName);
         boolean matchFound = matcher.find();
@@ -156,7 +158,7 @@ public abstract class Person {
     }
 
     protected boolean isPasswordValid(String pass) {
-        String regex = "^[a-zA-Z0-9]{8,12}$";
+        String regex = "^[a-zA-Z0-9]{1,12}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(pass);
         boolean matchFound = matcher.find();
@@ -208,7 +210,7 @@ public abstract class Person {
     public static Person getCurrentUser() {
         return currentUser;
     }
-    
+
     public static void setCurrentUser(Person currentUser) {
         Person.currentUser = currentUser;
     }
@@ -219,5 +221,13 @@ public abstract class Person {
 
     public static void addPerson(Person person) {
         people.add(person);
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
+    public Home getHome() {
+        return home;
     }
 }

@@ -7,15 +7,23 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import Frames.MainFrame;
+import People.Person;
+import People.Student;
 
 public abstract class Question extends JPanel {
-    public final JPanel promptPane = new JPanel();
+    public final JTextField promptPane = new JTextField();
     public final JPanel answerSheet = new JPanel();
     JLabel prompt;
 
     public Question(String prompt, HomeWork homeWork) {
+        if (Person.getCurrentUser() instanceof Student) {
+            promptPane.setEnabled(false);
+        }
+        
         setPrompt(prompt);
         this.prompt.setFont(new Font("Tahoma", Font.PLAIN, 30));
 

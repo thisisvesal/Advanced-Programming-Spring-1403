@@ -21,7 +21,7 @@ public class Main {
     "09000000001", "ginna@doe.do", "ginnadoe",
     "ginnadoe1");
     Person.addPerson(ginna);
-
+    
     // Initializing the mainframe
     MainFrame mainFrame = MainFrame.getMainFrame();
     Course math = new Course();

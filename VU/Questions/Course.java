@@ -4,18 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
 
 import Frames.CoursePage;
 import Frames.ExamPage;
@@ -26,6 +30,7 @@ import People.Professor;
 import People.Student;
 
 public class Course extends JPanel {
+    private Course currentObject = this;
     public final ArrayList<Student> students = new ArrayList<>();
     public final ArrayList<HomeWork> homeWorks = new ArrayList<>();
     public final ArrayList<Exam> exams = new ArrayList<>();
@@ -166,7 +171,32 @@ public class Course extends JPanel {
         addAnnouncementLabel.setIcon(new ImageIcon("icons/add.png"));
         this.announcementPanel.add(addAnnouncementLabel);
 
-        
+        addHomeworkLabel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                CoursePage.getInstance().setVisible(false);
+                HomeWork homeWork = new HomeWork(currentObject);
+                HomeWorkPage.getInstance().addHomeWork(homeWork);
+                HomeWorkPage.getInstance().setVisible(true);
+            }
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+            }
+        });
+
         JLabel box = new JLabel();
         box.setPreferredSize(new Dimension(500, 20));
         JButton submit = new JButton();

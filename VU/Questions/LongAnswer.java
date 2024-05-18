@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import People.Person;
+import People.Professor;
+
 public class LongAnswer extends Question {
 
     public LongAnswer(String prompt, HomeWork homeWork) {
@@ -25,6 +28,11 @@ public class LongAnswer extends Question {
 
     @Override
     public void designAnswerSheet() {
+        if(Person.getCurrentUser() instanceof Professor)
+        {
+            return;
+        }
+        
         answerSheet.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         answerSheet.setOpaque(false);
 

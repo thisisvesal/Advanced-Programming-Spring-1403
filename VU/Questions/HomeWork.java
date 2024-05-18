@@ -17,6 +17,7 @@ public class HomeWork extends JPanel {
     private JPanel homeWorkStatus, deadLine, scoreStatus, courseName;
     public JLabel homeWorkIcon, status, score, Name;
     public Object[][] answers = new Object[60][];
+    private HomeWork currentHomeWork = this;
 
     public HomeWork(Course course) {
         this.setPreferredSize(new Dimension(940, 790));
@@ -107,5 +108,21 @@ public class HomeWork extends JPanel {
     public void addQuestion(Question question) {
         questions.add(question);
         QuestionPage.getInstance().addQuestion(question);
+    }
+
+    public void arrangePageForProffesor() {
+        // TODO start button with this action:
+        int choice = JOptionPane.showOptionDialog(null, "Choose the question type", "Question type", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Multiple Choice", "Long Answer" }, "Multiple Choice");
+        if (choice == 0) {
+            HomeWorkPage.getInstance().setVisible(false);
+            // This will work when professor design for questions is set up
+            QuestionPage.getInstance().addQuestion(new MultipleChoice(currentHomeWork));
+            QuestionPage.getInstance().setVisible(true);
+        } else if (choice == 1) {
+            HomeWorkPage.getInstance().setVisible(false);
+            // This will work when professor design for questions is set up
+            QuestionPage.getInstance().addQuestion(new LongAnswer(currentHomeWork));
+            QuestionPage.getInstance().setVisible(true);
+        }
     }
 }

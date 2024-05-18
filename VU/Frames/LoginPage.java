@@ -1,6 +1,7 @@
 package Frames;
 
 import People.Person;
+import Questions.Home;
 
 import javax.swing.*;
 
@@ -60,7 +61,7 @@ public class LoginPage extends JPanel {
         });
 
         JLabel loginLabel = new JLabel();
-        loginLabel.setIcon(new ImageIcon("icons/login.png"));
+        loginLabel.setIcon(new ImageIcon("src/icons/login.png"));
         loginLabel.setBounds(150, 200, 100, 100);
         loginPanel.add(loginLabel);
 
@@ -71,9 +72,15 @@ public class LoginPage extends JPanel {
                 if (Person.personExists(UserName.getText(), Password.getText())) {
                     Person user = Person.findPerson(UserName.getText(), Password.getText());
                     Person.setCurrentUser(user);
-                    
-                    HomePage.getInstance().setUpPageFor(user);
+                    user.setHome(new Home(user));
+
+                    user.getHome().setUpGeneralPanelFor(user);
+                    HomeWorkPage.getInstance().setUpGeneralPanelFor(user);
+                    ExamPage.getInstance().setUpGeneralPanelFor(user);
+                    CorrectionPage.getInstance().setUpGeneralPanelFor(user);
                     QuestionPage.getInstance().setUpGeneralPanelFor(user);
+
+                    HomePage.getInstance().add(user.getHome());
 
                     LoginPage.getInstance().setVisible(false);
                     HomePage.getInstance().setVisible(true);
