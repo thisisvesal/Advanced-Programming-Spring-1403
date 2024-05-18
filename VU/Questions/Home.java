@@ -83,6 +83,7 @@ public class Home extends GeneralPage {
                             courseButton.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    newCourse.refresh();
                                     HomePage.getInstance().setVisible(false);
                                     CoursePage.getInstance().setCurrentVisibleCourse(newCourse);
                                     CoursePage.getInstance().setVisible(true);

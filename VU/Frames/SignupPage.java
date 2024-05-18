@@ -126,7 +126,6 @@ public class SignupPage extends JPanel {
                                 field[3].getText(),
                                 field[4].getText(), field[5].getText(), field[6].getText(), field[7].getText());
                     if (signupSuccessful) {
-                        Person.addPerson(user);
                         JOptionPane.showOptionDialog(MainFrame.getMainFrame(), "You were signed up successfully",
                                 "Success",
                                 JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" },

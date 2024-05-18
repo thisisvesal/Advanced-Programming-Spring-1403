@@ -82,7 +82,7 @@ public abstract class Person {
         this.email = email;
         this.UserName = UserName;
         this.Password = Password;
-        people.add(this);
+        Person.addPerson(this);
         currentUser = this;
         personCounter++;
         SignupPage.signupSuccessful = true;

@@ -43,6 +43,8 @@ public class Course extends JPanel {
         field.setBackground(Color.WHITE);
         field.setCaretColor(Color.BLACK);
     }
+    // Professor special:
+    private JPopupMenu popupMenu = new JPopupMenu();
 
     public Course(String name) {
         this.setBackground(Color.lightGray);
@@ -128,9 +130,7 @@ public class Course extends JPanel {
     }
 
     public void arrangePageForProffesor() {
-        JPopupMenu popupMenu = new JPopupMenu();
         ArrayList<JMenuItem> menuItems = setMenuItem();
-        // menuItems.add(new JMenuItem("somethin"));
         for (JMenuItem menuItem : menuItems) {
             popupMenu.add(menuItem);
         }
@@ -268,6 +268,16 @@ public class Course extends JPanel {
             }
         });
 
+    }
+
+    public void refresh() {
+        if (Person.getCurrentUser() instanceof Professor) {
+            popupMenu.removeAll();
+            ArrayList<JMenuItem> menuItems = setMenuItem();
+            for (JMenuItem menuItem : menuItems) {
+                popupMenu.add(menuItem);
+            }
+        }
     }
 
     private ArrayList<JMenuItem> setMenuItem() {

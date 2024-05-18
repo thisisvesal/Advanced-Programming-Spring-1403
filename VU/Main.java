@@ -14,13 +14,10 @@ public class Main {
     // Sample user
     Person jane = new Student("Jane", "Doe", "Donuts", "4021234567", "09000000000", "jane@doe.do", "janedoe",
         "janedoe1");
-    
-    Person.addPerson(jane);
 
     Person ginna = new Professor("ginna", "Doe", "Donuts", "402123",
     "09000000001", "ginna@doe.do", "ginnadoe",
     "ginnadoe1");
-    Person.addPerson(ginna);
     
     // Initializing the mainframe
     MainFrame mainFrame = MainFrame.getMainFrame();
