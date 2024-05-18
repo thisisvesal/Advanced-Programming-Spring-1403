@@ -133,7 +133,7 @@ public class Course extends JPanel {
     public void arrangePageForProffesor() {
         JPopupMenu popupMenu = new JPopupMenu();
         ArrayList<JMenuItem> menuItems = setMenuItem();
-        menuItems.add(new JMenuItem("somethin"));
+        // menuItems.add(new JMenuItem("somethin"));
         for (JMenuItem menuItem : menuItems) {
             popupMenu.add(menuItem);
         }

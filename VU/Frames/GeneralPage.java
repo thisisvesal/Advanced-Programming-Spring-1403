@@ -68,7 +68,7 @@ public class GeneralPage extends JPanel {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((JButton)e.getSource()).getParent().getParent().setVisible(false);
+                ((JButton)e.getSource()).getParent().getParent().getParent().setVisible(false);
                 LoginPage.getInstance().setVisible(true);
             }
         });
