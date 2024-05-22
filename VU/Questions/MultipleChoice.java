@@ -27,16 +27,18 @@ public class MultipleChoice extends Question {
 
     public void addOption(String option) {
         JRadioButton newOption = new JRadioButton(option);
-        newOption.setFocusable(false);
+        // newOption.setFocusable(false);
         newOption.setFont(new Font(newOption.getFont().getName(), Font.PLAIN, 20));
-        newOption.setPreferredSize(new Dimension(870, 50));
-        newOption.setIcon(new ImageIcon("icons/checkboxes/unchecked.png"));
-        newOption.setSelectedIcon(new ImageIcon("icons/checkboxes/checked.png"));
-        newOption.setOpaque(false);
+        newOption.setPreferredSize(new Dimension(60, 50));
+        // newOption.setIcon(new ImageIcon("icons/checkboxes/unchecked.png"));
+        // newOption.setSelectedIcon(new ImageIcon("icons/checkboxes/checked.png"));
+        // newOption.setOpaque(false);
+
 
         bg.add(newOption);
         options.add(newOption);
         this.answerSheet.add(newOption);
+
     }
 
     @Override

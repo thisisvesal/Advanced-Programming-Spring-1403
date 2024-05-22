@@ -16,7 +16,7 @@ public class HomeWorkPage extends GeneralPage {
 
     private HomeWorkPage() {
         super();
-        this.setUpGeneralPanelFor(Person.getCurrentUser());
+        //this.setUpGeneralPanelFor(Person.getCurrentUser());
         homeWorkPanel.setPreferredSize(new Dimension(950, 795));
         homeWorkPanel.setOpaque(false);
         homeWorkPanel.setLayout(new CardLayout());

@@ -2,6 +2,7 @@ package Frames;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class QuestionPage extends GeneralPage {
         super();
         questionPanel.setPreferredSize(new Dimension(950, 795));
         questionPanel.setOpaque(false);
-        questionPanel.setLayout(new CardLayout());
+        questionPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
         questionPanel.setBackground(MainFrame.themeColor);
         this.add(questionPanel);
     }

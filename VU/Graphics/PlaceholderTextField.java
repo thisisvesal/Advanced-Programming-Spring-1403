@@ -13,9 +13,9 @@ public class PlaceholderTextField extends JTextField {
     }
 
     public PlaceholderTextField(
-        final Document pDoc,
-        final String pText,
-        final int pColumns)
+            final Document pDoc,
+            final String pText,
+            final int pColumns)
     {
         super(pDoc, pText, pColumns);
     }
@@ -46,11 +46,11 @@ public class PlaceholderTextField extends JTextField {
 
         final Graphics2D g = (Graphics2D) pG;
         g.setRenderingHint(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(new Color(89, 94, 99));
         g.drawString(placeholder, getInsets().left, pG.getFontMetrics()
-            .getMaxAscent() + getInsets().top);
+                .getMaxAscent() + getInsets().top);
         this.setBorder(new LineBorder(Color.BLACK, 2));
     }
 

@@ -10,31 +10,28 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
-import Frames.CoursePage;
-import Frames.ExamPage;
-import Frames.HomeWorkPage;
+import Clock.ClockPane;
+import Frames.*;
 import Graphics.PlaceholderTextField;
 import People.Person;
 import People.Professor;
 import People.Student;
 
 public class Course extends JPanel {
-    private Course currentObject = this;
+    private Questions.Course currentObject = this;
     public final ArrayList<Student> students = new ArrayList<>();
     public final ArrayList<HomeWork> homeWorks = new ArrayList<>();
     public final ArrayList<Exam> exams = new ArrayList<>();
     private PlaceholderTextField field = new PlaceholderTextField();
+    public  final DefaultListModel<String> announcementList = new DefaultListModel<>();
+    public final JList<String> AnnouncementPanel = new JList<>(announcementList);
     JLabel CourseNameLabel;
-    JPanel announcementPanel = new JPanel();
-    public JPanel courseMaterialPanel, homeWorksPanel, examsPanel, courseNamePanel;
+
+    public JPanel courseMaterialPanel, homeWorksPanel, examsPanel, courseNamePanel,generalPanel,announcementPanel;
     public JLabel lesson;
+    JPanel CoursePanel;
     private boolean isAnnouncementFieldVisible;
     {
         field.setPreferredSize(new Dimension(600, 80));
@@ -43,78 +40,49 @@ public class Course extends JPanel {
         field.setBackground(Color.WHITE);
         field.setCaretColor(Color.BLACK);
     }
-    // Professor special:
-    private JPopupMenu popupMenu = new JPopupMenu();
+    public JPopupMenu popupMenu = new JPopupMenu();
+    Course currentCourse;
 
     public Course(String name) {
-        this.setBackground(Color.lightGray);
-        this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.setPreferredSize(new Dimension(940, 790));
+        this.setPreferredSize(new Dimension(1184, 790));
+        this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        this.setBackground(Color.WHITE);
 
-        courseNamePanel = new JPanel();
-        courseNamePanel.setBackground(new Color(235, 234, 171));
-        courseNamePanel.setPreferredSize(new Dimension(920, 42));
-        courseNamePanel.setLayout(new BorderLayout());
+        //  this.setLayout(new FlowLayout(FlowLayout.CENTER));
+        generalPanel = new JPanel();
+        generalPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+        generalPanel.setPreferredSize(new Dimension(244, 790));
+        generalPanel.setBackground(Color.WHITE);
+        generalPanel.add(new ClockPane());
+        //  announcementPanel = new JPanel();
+        AnnouncementPanel.setPreferredSize(new Dimension(244, 640));
+        AnnouncementPanel.setBackground(MainFrame.themeColor);
+        // announcementList.addElement("This is an announcement");
 
-        CourseNameLabel = new JLabel();
-        CourseNameLabel.setText(name);
-        courseNamePanel.add(CourseNameLabel, BorderLayout.CENTER);
-        this.add(courseNamePanel);
+        generalPanel.add(AnnouncementPanel);
 
-        courseMaterialPanel = new JPanel();
-        courseMaterialPanel.setBackground(new Color(169, 239, 242));
-        courseMaterialPanel.setPreferredSize(new Dimension(920, 150));
-        courseMaterialPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.add(courseMaterialPanel);
+        JButton homeButton = new JButton("Home");
+        homeButton.setPreferredSize(new Dimension(244, 60));
+        homeButton.setFocusable(false);
+        homeButton.setBackground(Color.white);
+        generalPanel.add(homeButton);
 
-        JLabel Lesson = new JLabel();
-        Lesson.setText("   Lessons");
-        courseMaterialPanel.add(Lesson);
-
-        homeWorksPanel = new JPanel();
-        homeWorksPanel.setBackground(new Color(235, 234, 171));
-        homeWorksPanel.setPreferredSize(new Dimension(920, 270));
-        homeWorksPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.add(homeWorksPanel);
-
-        JLabel exercises = new JLabel();
-        exercises.setText("   Homeworks");
-        homeWorksPanel.add(exercises);
-
-        for (HomeWork homeWork : homeWorks) {
-            homeWorksPanel.add(homeWork.homeWorkIcon);
-        }
-
-        examsPanel = new JPanel();
-        examsPanel.setBackground(new Color(169, 239, 242));
-        examsPanel.setPreferredSize(new Dimension(920, 265));
-        examsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.add(examsPanel);
-
-        JLabel examLabel = new JLabel();
-        examLabel.setText("   Exams");
-        examsPanel.add(examLabel);
-
-        for (Exam exam : exams) {
-            examsPanel.add(exam.examIcon);
-        }
-
-        // CoursePage coursePage = CoursePage.getInstance();
-        // coursePage.addCourse(this);
-
-        if (Person.getCurrentUser() instanceof Professor) {
-            courseMaterialPanel.setPreferredSize(new Dimension(920, 170));
-            homeWorksPanel.setPreferredSize(new Dimension(920, 170));
-            examsPanel.setPreferredSize(new Dimension(920, 170));
-            announcementPanel.setBackground(new Color(235, 234, 171));
-            announcementPanel.setPreferredSize(new Dimension(920, 170));
-            announcementPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-            this.add(announcementPanel);
-            arrangePageForProffesor();
-        }
-        Lesson = new JLabel();
-        Lesson.setIcon(new ImageIcon("icons/video.png"));
-        courseMaterialPanel.add(Lesson);
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainFrame.getMainFrame().coursePage.setVisible(false);
+                MainFrame.getMainFrame().homePage.setVisible(true);
+            }
+        });
+        generalPanel.setOpaque(false);
+        // generalPanel.setPreferredSize(new Dimension(244, 800));
+        this.add(generalPanel);
+        CoursePanel = new JPanel();
+        CoursePanel.setPreferredSize(new Dimension(930, 790));
+        CoursePanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+        CoursePanel.setBackground(Color.LIGHT_GRAY);
+        currentCourse=this;
+        CoursePage.getInstance().addCourse(this);
     }
 
     public void addExam(Exam exam) {
@@ -128,8 +96,77 @@ public class Course extends JPanel {
         HomeWorkPage.getInstance().homeWorkPanel.add(homeWork);
         this.homeWorksPanel.add(homeWork.homeWorkIcon);
     }
+    public void CommonDesign(){
+        courseNamePanel = new JPanel();
+        courseNamePanel.setBackground(new Color(235, 234, 171));
+        courseNamePanel.setPreferredSize(new Dimension(940, 42));
+        courseNamePanel.setLayout(new BorderLayout());
+
+        CourseNameLabel = new JLabel();
+        CourseNameLabel.setText("CourseName");
+        courseNamePanel.add(CourseNameLabel, BorderLayout.CENTER);
+        CoursePanel.add(courseNamePanel);
+
+        courseMaterialPanel = new JPanel();
+        courseMaterialPanel.setBackground(new Color(169, 239, 242));
+        courseMaterialPanel.setPreferredSize(new Dimension(940, 150));
+        courseMaterialPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        CoursePanel.add(courseMaterialPanel);
+
+        JLabel Lesson = new JLabel();
+        Lesson.setText("   Lessons");
+        courseMaterialPanel.add(Lesson);
+
+        homeWorksPanel = new JPanel();
+        homeWorksPanel.setBackground(new Color(235, 234, 171));
+        homeWorksPanel.setPreferredSize(new Dimension(940, 270));
+        homeWorksPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        CoursePanel.add(homeWorksPanel);
+
+        JLabel exercises = new JLabel();
+        exercises.setText("   Homeworks");
+        homeWorksPanel.add(exercises);
+
+        for (HomeWork homeWork : homeWorks) {
+            homeWorksPanel.add(homeWork.homeWorkIcon);
+        }
+
+        examsPanel = new JPanel();
+        examsPanel.setBackground(new Color(169, 239, 242));
+        examsPanel.setPreferredSize(new Dimension(940, 265));
+        examsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        CoursePanel.add(examsPanel);
+
+        JLabel examLabel = new JLabel();
+        examLabel.setText("   Exams");
+        examsPanel.add(examLabel);
+
+        for (Exam exam : exams) {
+            examsPanel.add(exam.examIcon);
+        }
+        Lesson = new JLabel();
+        Lesson.setIcon(new ImageIcon("src/icons/video.png"));
+        courseMaterialPanel.add(Lesson);
+        this.add(CoursePanel);
+    }
+    public void arrangePageForStudent() {
+        CoursePanel.removeAll();
+        CommonDesign();
+    }
 
     public void arrangePageForProffesor() {
+        CoursePanel.removeAll();
+        CommonDesign();
+        courseMaterialPanel.setPreferredSize(new Dimension(940, 170));
+        homeWorksPanel.setPreferredSize(new Dimension(940, 170));
+        examsPanel.setPreferredSize(new Dimension(940, 170));
+        announcementPanel = new JPanel();
+        announcementPanel.setBackground(new Color(235, 234, 171));
+        announcementPanel.setPreferredSize(new Dimension(940, 170));
+        announcementPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        CoursePanel.add(announcementPanel);
+
+        popupMenu.removeAll();
         ArrayList<JMenuItem> menuItems = setMenuItem();
         for (JMenuItem menuItem : menuItems) {
             popupMenu.add(menuItem);
@@ -149,15 +186,15 @@ public class Course extends JPanel {
         courseNamePanel.add(addStudents, BorderLayout.EAST);
 
         JLabel addHomeworkLabel = new JLabel();
-        addHomeworkLabel.setIcon(new ImageIcon("icons/add.png"));
+        addHomeworkLabel.setIcon(new ImageIcon("src/icons/add.png"));
         this.homeWorksPanel.add(addHomeworkLabel);
 
         JLabel addExamLabel = new JLabel();
-        addExamLabel.setIcon(new ImageIcon("icons/add.png"));
+        addExamLabel.setIcon(new ImageIcon("src/icons/add.png"));
         this.examsPanel.add(addExamLabel);
 
         JLabel addLessonLabel = new JLabel();
-        addLessonLabel.setIcon(new ImageIcon("icons/add.png"));
+        addLessonLabel.setIcon(new ImageIcon("src/icons/add.png"));
         this.courseMaterialPanel.add(addLessonLabel);
 
         JLabel announcementLabel = new JLabel();
@@ -165,34 +202,9 @@ public class Course extends JPanel {
         announcementPanel.add(announcementLabel);
 
         JLabel addAnnouncementLabel = new JLabel();
-        addAnnouncementLabel.setIcon(new ImageIcon("icons/add.png"));
+        addAnnouncementLabel.setIcon(new ImageIcon("src/icons/add.png"));
         this.announcementPanel.add(addAnnouncementLabel);
 
-        addHomeworkLabel.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                CoursePage.getInstance().setVisible(false);
-                HomeWork homeWork = new HomeWork(currentObject);
-                HomeWorkPage.getInstance().addHomeWork(homeWork);
-                HomeWorkPage.getInstance().setVisible(true);
-            }
-
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(java.awt.event.MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(java.awt.event.MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(java.awt.event.MouseEvent e) {
-            }
-        });
 
         JLabel box = new JLabel();
         box.setPreferredSize(new Dimension(500, 20));
@@ -204,6 +216,9 @@ public class Course extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // announcements.add(field.getText());
+                announcementList.addElement(field.getText());
+                field.setText("");
                 // ProfessorCourse.super.addAnnouncement(field.getText());
             }
         });
@@ -216,8 +231,11 @@ public class Course extends JPanel {
         addHomeworkLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                // TODO
-                // HomeWorkPage.getInstance().setVisible(true);
+                CoursePage.getInstance().setVisible(false);
+                HomeWork homeWork = new HomeWork(currentObject);
+                homeWork.arrangePageForProffesor();
+                HomeWorkPage.getInstance().addHomeWork(homeWork);
+                HomeWorkPage.getInstance().setVisible(true);
             }
 
             @Override
@@ -269,7 +287,6 @@ public class Course extends JPanel {
         });
 
     }
-
     public void refresh() {
         if (Person.getCurrentUser() instanceof Professor) {
             popupMenu.removeAll();
@@ -291,7 +308,21 @@ public class Course extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         students.add(student);
-                        student.classList.add(new JButton(CourseNameLabel.getText()));
+                        JButton studentClass = new JButton(CourseNameLabel.getText());
+                        student.classList.add(studentClass);
+                        student.courses.add(0,currentCourse);
+
+                        studentClass.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // Course newCourse = new Course(CourseNameLabel.getText());
+                                if(Person.getCurrentUser() instanceof Student){
+                                    arrangePageForStudent();
+                                }
+                                HomePage.getInstance().setVisible(false);
+                                CoursePage.getInstance().setVisible(true);
+                            }
+                        });
                     }
                 });
                 counter++;

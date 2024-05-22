@@ -22,6 +22,7 @@ import Graphics.ButtonLayout;
 import Graphics.PlaceholderTextField;
 import People.Person;
 import People.Professor;
+import People.Student;
 
 public class Home extends GeneralPage {
     // To be added from left to right
@@ -85,6 +86,9 @@ public class Home extends GeneralPage {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     newCourse.refresh();
+                                    if(Person.getCurrentUser() instanceof Professor){
+                                        newCourse.arrangePageForProffesor();
+                                    }
                                     HomePage.getInstance().setVisible(false);
                                     CoursePage.getInstance().setCurrentVisibleCourse(newCourse);
                                     CoursePage.getInstance().setVisible(true);
@@ -96,7 +100,7 @@ public class Home extends GeneralPage {
                         }
                     });
                     dialog.add(submitButton);
-                    dialog.setIconImage(new ImageIcon("icons/appIcon.png").getImage());
+                    dialog.setIconImage(new ImageIcon("src/icons/appIcon.png").getImage());
 
                     // Display the dialog
                     dialog.setVisible(true);

@@ -16,7 +16,7 @@ public class ExamPage extends GeneralPage {
 
     private ExamPage() {
         super();
-        this.setUpGeneralPanelFor(Person.getCurrentUser());
+       // this.setUpGeneralPanelFor(Person.getCurrentUser());
         examPanel.setPreferredSize(new Dimension(950, 795));
         examPanel.setOpaque(false);
         examPanel.setLayout(new CardLayout());

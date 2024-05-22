@@ -8,9 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import People.Person;
-import People.Professor;
-
 public class LongAnswer extends Question {
 
     public LongAnswer(String prompt, HomeWork homeWork) {
@@ -28,22 +25,18 @@ public class LongAnswer extends Question {
 
     @Override
     public void designAnswerSheet() {
-        if(Person.getCurrentUser() instanceof Professor)
-        {
-            return;
-        }
-        
         answerSheet.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         answerSheet.setOpaque(false);
 
-        JTextArea textArea = new JTextArea(17, 49);
+        // 20 , 49
+        JTextArea textArea = new JTextArea(7, 13);
         textArea.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+        textArea.setEditable(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JButton submitButton = new JButton("Submit");
-        submitButton.setPreferredSize(new Dimension(100, 30));
+
         answerSheet.add(scrollPane);
-        answerSheet.add(submitButton);
+        //answerSheet.add(submitButton);
     }
 }

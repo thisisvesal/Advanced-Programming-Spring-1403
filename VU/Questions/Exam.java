@@ -25,13 +25,14 @@ public class Exam extends JPanel {
         this.setOpaque(true);
 
         this.examIcon = new JLabel();
-        this.examIcon.setIcon(new ImageIcon("icons/exam.png"));
+        this.examIcon.setIcon(new ImageIcon("src/icons/quiz.png"));
         this.examIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 super.mouseClicked(e);
                 MainFrame.getMainFrame().coursePage.setVisible(false);
-                MainFrame.getMainFrame().examPage.setVisible(true);
+                MainFrame.getMainFrame().homeWorkPage.setVisible(true);
+                // MainFrame.getMainFrame().examPage.setVisible(true);
             }
         });
 

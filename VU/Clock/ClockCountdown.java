@@ -1,14 +1,17 @@
 package Clock;
 
+import Frames.CoursePage;
+import Frames.HomeWorkPage;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClockCountdown extends JPanel {
+public class ClockCountdown extends JPanel{
     private static ClockCountdown instance;
-    private int hours = 23;
-    private int minutes = 59;
-    private int seconds = 59;
+    public static int hours = 23;
+    public static int minutes = 59;
+    public static int seconds = 59;
     private Timer timer;
 
     private JLabel clockLabel;
@@ -42,7 +45,6 @@ public class ClockCountdown extends JPanel {
 
         timer.start();
     }
-
     public static ClockCountdown getInstance() {
         if (instance == null) {
             instance = new ClockCountdown();
@@ -50,14 +52,13 @@ public class ClockCountdown extends JPanel {
         return instance;
     }
 
-    /*
-     * SwingUtilities.invokeLater(new Runnable() {
-     * 
-     * @Override
-     * public void run() {
-     * new Main().setVisible(true);
-     * }
-     * });
-     */
+
+      /*  SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });*/
 
 }
+

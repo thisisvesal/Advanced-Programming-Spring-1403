@@ -1,6 +1,7 @@
 package Frames;
 
 import People.Person;
+import People.Student;
 import Questions.Home;
 
 import javax.swing.*;
@@ -73,6 +74,7 @@ public class LoginPage extends JPanel {
                     HomePage.getInstance().removeAll();
                     Person user = Person.findPerson(UserName.getText(), Password.getText());
                     Person.setCurrentUser(user);
+
                     user.setHome(new Home(user));
 
                     user.getHome().setUpGeneralPanelFor(user);

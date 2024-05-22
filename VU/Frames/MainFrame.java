@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
         }
 
         loginPage.setVisible(true);
-        
+
         this.setVisible(true);
     }
 

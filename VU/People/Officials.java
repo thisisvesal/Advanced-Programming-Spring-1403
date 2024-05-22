@@ -19,7 +19,7 @@ public class Officials extends Person {
         if (matchFound) {
             return true;
         }
-        
+
         JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid ID ", "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] {"OK"}, "OK");
         return false;
     }

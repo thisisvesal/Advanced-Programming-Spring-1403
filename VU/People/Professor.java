@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Professor extends Person {
     public Professor(String name, String lastName, String FieldOfStudy, String ID, String phoneNumber, String email,
-            String UserName, String Password) {
+                     String UserName, String Password) {
         super(name, lastName, FieldOfStudy, ID, phoneNumber, email, UserName, Password);
     }
 

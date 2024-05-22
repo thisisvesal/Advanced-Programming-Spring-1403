@@ -2,6 +2,7 @@ package People;
 
 import Frames.LoginPage;
 import Frames.SignupPage;
+import Questions.Course;
 import Questions.Home;
 
 import javax.swing.*;
@@ -17,10 +18,12 @@ public abstract class Person {
     static Person currentUser;
     public final ArrayList<JCheckBox> taskBoxes = new ArrayList<>();
     public final ArrayList<JButton> classList = new ArrayList<>();
+
+
     private Home home;
 
     public Person(String name, String lastName, String FieldOfStudy, String ID, String phoneNumber,
-            String email, String UserName, String Password) {
+                  String email, String UserName, String Password) {
         if (!isInputValid(name)) {
             JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid name!", "Warning",
                     JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
@@ -82,7 +85,7 @@ public abstract class Person {
         this.email = email;
         this.UserName = UserName;
         this.Password = Password;
-        Person.addPerson(this);
+        people.add(this);
         currentUser = this;
         personCounter++;
         SignupPage.signupSuccessful = true;
@@ -219,9 +222,9 @@ public abstract class Person {
         return ID;
     }
 
-    public static void addPerson(Person person) {
+   /* public static void addPerson(Person person) {
         people.add(person);
-    }
+    }*/
 
     public void setHome(Home home) {
         this.home = home;

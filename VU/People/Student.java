@@ -1,14 +1,17 @@
 package People;
 
 import Frames.LoginPage;
+import Questions.Course;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Student extends Person {
+    public final ArrayList<Course> courses = new ArrayList<>();
     public Student(String name, String lastName, String FieldOfStudy, String ID, String phoneNumber, String email,
-            String UserName, String Password) {
+                   String UserName, String Password) {
         super(name, lastName, FieldOfStudy, ID, phoneNumber, email, UserName, Password);
     }
 
