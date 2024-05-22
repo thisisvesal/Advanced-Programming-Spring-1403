@@ -49,9 +49,10 @@ public class Changeling {
                 break;
             }
             String word = words[i];
+            StringBuilder sb = new StringBuilder(word);
             for (char c : roomMatesOf(word.charAt(index))) {
-                String newString = word.substring(0, index) + c + word.substring(index + 1);
-                ans[j] = newString;
+                sb.setCharAt(index, c);
+                ans[j] = sb.toString();
                 j++;
             }
         }
