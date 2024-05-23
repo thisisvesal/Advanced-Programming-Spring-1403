@@ -11,26 +11,33 @@
 import Exceptions.*;
 
 public class Changeling {
-    // Every element of the following array represents a room with roommate characters:
+    // Every element of the following array represents a room with roommate
+    // characters:
+
     private static char[][] dataTable = new char[][] {
-            { '2', 'a', 'b', 'c' },
-            { '3', 'd', 'e', 'f' },
-            { '4', 'g', 'h', 'i' },
-            { '5', 'j', 'k', 'l' },
-            { '6', 'm', 'n', 'o' },
-            { '7', 'p', 'q', 'r', 's' },
-            { '8', 't', 'u', 'v' },
-            { '9', 'w', 'x', 'y', 'z' }
+            { 'a', 'b', 'c' },
+            { 'd', 'e', 'f' },
+            { 'g', 'h', 'i' },
+            { 'j', 'k', 'l' },
+            { 'm', 'n', 'o' },
+            { 'p', 'q', 'r', 's' },
+            { 't', 'u', 'v' },
+            { 'w', 'x', 'y', 'z' }
     };
 
     public static char[] roomMatesOf(char x) throws CharacterNotInTableException {
-        for (char[] cs : dataTable) {
-            for (char c : cs) {
+        if (x >= '2' && x <= '9') {
+            return dataTable[(int)(x - 48 - 2)];
+        }
+
+        for (int i = 0; i < dataTable.length; i++) {
+            for (char c : dataTable[i]) {
                 if (x == c) {
-                    return cs;
+                    return dataTable[i];
                 }
             }
         }
+
         throw new CharacterNotInTableException();
     }
 
