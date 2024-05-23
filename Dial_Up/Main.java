@@ -10,13 +10,32 @@ public class Main {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader("numbers.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
 
+            String[] numberList = new String[2000];
             String word;
+
             int count = 0;
-            while ((word = reader.readLine()) != null) {
+            for (count = 0; count < numberList.length; count++) {
+                if ((numberList[count] = reader.readLine()) == null)  {
+                    break;
+                }
+            }
+            
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("numbers.txt"));
+
+            for (int x = 0; x < count; x++) {
+                word = numberList[x];
+                writer.write(word);
 
                 String numberString = Changeling.numbersIn(word);
+
+                if (Changeling.countOfChangelings(numberString) != 0) {
+                    writer.write(" , ");
+                } else {
+                    writer.write("\n");
+                }
 
                 String[] numberChangelingList = Changeling.changelingList(numberString);
 
@@ -30,16 +49,10 @@ public class Main {
                         writer.write(" , ");
                     }
                 }
-
-                count += Changeling.countOfChangelings(word);
-
-                // System.out.println(count + "files of 25417064 written");
             }
 
-            System.out.println(count);
-
-            reader.close();
             writer.close();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
