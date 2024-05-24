@@ -31,10 +31,11 @@ public class Main {
 
                 String numberString = Changeling.numbersIn(word);
 
-                if (Changeling.countOfChangelings(numberString) != 0) {
-                    writer.write(" , ");
-                } else {
+                if (Changeling.countOfChangelings(numberString) == 1) {
                     writer.write("\n");
+                    continue;
+                } else {
+                    writer.write(" , ");
                 }
 
                 String[] numberChangelingList = Changeling.changelingList(numberString);
