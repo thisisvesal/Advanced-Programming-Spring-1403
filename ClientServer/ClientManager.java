@@ -35,10 +35,10 @@ public class ClientManager implements Runnable {
 
             // send message to client
             writer.println("Enter name: ");
-            System.out.println("Server - Enter name: ");
+            System.out.println("Asking the new client to enter their name");
             String name = reader.readLine();
             writer.println("Enter password:");
-            System.out.println("Server: Enter password:");
+            System.out.println("Asking the new client to enter their password");
             String password = reader.readLine();
             try {
                 user = User.findUser(name, password);
@@ -51,10 +51,11 @@ public class ClientManager implements Runnable {
             String message = "";
             do {
                 if (message.isEmpty() || !message.equals("printed")) {
+                    System.out.println("Asking " + name + " to enter a message");
                     writer.println("Enter message: ");
-                    System.out.println("Enter message: ");
                 }
                 message = reader.readLine();
+                System.out.println(name + " said: " + message);
                 writer.println("Echo: " + message);
 
             } while (!message.equals("bye"));
