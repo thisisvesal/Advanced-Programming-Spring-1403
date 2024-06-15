@@ -42,10 +42,10 @@ public class ClientManager implements Runnable {
             String password = reader.readLine();
             try {
                 user = User.findUser(name, password);
-                writer.println("Welcome back, " + name);
+                // writer.println("Welcome back, " + name);
             } catch (UserNotFoundException e) {
                 User.addUser(new User(name, password, this));
-                writer.println("Welcome, " + name);
+                // writer.println("Welcome, " + name);
             }
 
             String message = "";
@@ -55,7 +55,9 @@ public class ClientManager implements Runnable {
                     writer.println("Enter message: ");
                 }
                 message = reader.readLine();
-                System.out.println(name + " said: " + message);
+                if (!message.contains("printed")) {
+                    System.out.println(name + " said: " + message);
+                }
                 writer.println("Echo: " + message);
 
             } while (!message.equals("bye"));
