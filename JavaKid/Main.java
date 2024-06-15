@@ -24,7 +24,6 @@ public class Main {
 
 
         try {
-            System.out.println("Sleep: 50 ms");
             Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -51,8 +50,8 @@ public class Main {
                 c.addMoney(5000);
             }
         }.start();
+        
 
-
-        System.out.println("Final money: " + c.getMoney());
+        System.out.println("Current money status: " + c.getMoney());
     }
 }
