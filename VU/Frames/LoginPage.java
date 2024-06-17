@@ -1,7 +1,6 @@
 package Frames;
 
 import People.Person;
-import People.Student;
 import Questions.Home;
 
 import javax.swing.*;
@@ -72,21 +71,25 @@ public class LoginPage extends JPanel {
                 super.mouseClicked(e);
                 if (Person.personExists(UserName.getText(), Password.getText())) {
                     HomePage.getInstance().removeAll();
-                    Person user = Person.findPerson(UserName.getText(), Password.getText());
-                    Person.setCurrentUser(user);
 
-                    user.setHome(new Home(user));
-
-                    user.getHome().setUpGeneralPanelFor(user);
-                    HomeWorkPage.getInstance().setUpGeneralPanelFor(user);
-                    ExamPage.getInstance().setUpGeneralPanelFor(user);
-                    CorrectionPage.getInstance().setUpGeneralPanelFor(user);
-                    QuestionPage.getInstance().setUpGeneralPanelFor(user);
-
-                    HomePage.getInstance().add(user.getHome());
-
-                    LoginPage.getInstance().setVisible(false);
-                    HomePage.getInstance().setVisible(true);
+                    try {
+                        Person user = Person.findPerson(UserName.getText(), Password.getText());
+                        Person.setCurrentUser(user);
+                        user.setHome(new Home(user));
+                        user.getHome().setUpGeneralPanelFor(user);
+                        HomeWorkPage.getInstance().setUpGeneralPanelFor(user);
+                        ExamPage.getInstance().setUpGeneralPanelFor(user);
+                        CorrectionPage.getInstance().setUpGeneralPanelFor(user);
+                        QuestionPage.getInstance().setUpGeneralPanelFor(user);
+                        HomePage.getInstance().add(user.getHome());
+                        LoginPage.getInstance().setVisible(false);
+                        HomePage.getInstance().setVisible(true);
+                    } catch (Exception exception) {
+                        // System.out.println("src/People/Person/findPerson() '\n' people List is
+                        // null!");
+                        System.out.println(exception.getCause());
+                        exception.printStackTrace();
+                    }
                 }
             }
         });

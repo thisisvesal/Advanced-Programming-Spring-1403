@@ -1,13 +1,12 @@
 package Questions;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,13 +15,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import FileHandling.SerializableActionListener;
+import FileHandling.SerializableMouseListener;
 import Frames.*;
 
 import Graphics.ButtonLayout;
 import Graphics.PlaceholderTextField;
 import People.Person;
 import People.Professor;
-import People.Student;
 
 public class Home extends GeneralPage {
     // To be added from left to right
@@ -54,8 +54,8 @@ public class Home extends GeneralPage {
     public void setUpPageFor(Person person) {
         setUpGeneralPanelFor(person);
         if (person instanceof Professor) {
-            JLabel addCourseLabel = new JLabel(new ImageIcon("icons/add.png"));
-            addCourseLabel.addMouseListener(new MouseListener() {
+            JLabel addCourseLabel = new JLabel(new ImageIcon("src/icons/add.png"));
+            addCourseLabel.addMouseListener(new SerializableMouseListener() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
                     // Add course
@@ -73,7 +73,7 @@ public class Home extends GeneralPage {
 
                     // Create a JButton
                     JButton submitButton = new JButton("Submit");
-                    submitButton.addActionListener(new ActionListener() {
+                    submitButton.addActionListener(new SerializableActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Store the input in a String variable
@@ -82,7 +82,7 @@ public class Home extends GeneralPage {
                             CoursePage.getInstance().addCourse(newCourse);
                             JButton courseButton = new JButton(coursename);
                             courseButton.setBackground(Color.white);
-                            courseButton.addActionListener(new ActionListener() {
+                            courseButton.addActionListener(new SerializableActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     newCourse.refresh();
@@ -90,6 +90,16 @@ public class Home extends GeneralPage {
                                         newCourse.arrangePageForProffesor();
                                     }
                                     HomePage.getInstance().setVisible(false);
+                                    boolean courseInPage = false;
+                                    for (Component component : CoursePage.getInstance().getComponents()) {
+                                        if (component instanceof Course) {
+                                            courseInPage = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!courseInPage) {
+                                        CoursePage.getInstance().addCourse(newCourse);
+                                    }
                                     CoursePage.getInstance().setCurrentVisibleCourse(newCourse);
                                     CoursePage.getInstance().setVisible(true);
                                 }

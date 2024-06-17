@@ -1,6 +1,5 @@
 package Questions;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,12 +15,14 @@ import Frames.QuestionPage;
 import Graphics.PlaceholderTextField;
 import People.Person;
 import People.Professor;
+import People.Student;
 
 public abstract class Question extends JPanel {
     public final JPanel promptPane = new JPanel();
     public final JPanel answerSheet = new JPanel();
     public Question question;
     JLabel prompt;
+    public  JPanel questionPanel;
     private static int questionType = 0;
 
     public Question(String prompt, HomeWork homeWork) {
@@ -37,8 +38,10 @@ public abstract class Question extends JPanel {
         promptPane.setPreferredSize(new Dimension(300, 150));
         promptPane.setLayout(new FlowLayout(FlowLayout.LEADING));
         promptPane.add(this.prompt);
+
         this.add(promptPane);
         this.add(answerSheet);
+
 
         Question currentObject = this;
 
@@ -60,12 +63,16 @@ public abstract class Question extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for(Student student : homeWork.currentCourse.students){
+                    homeWork.homeWorkForStudent.add(MainFrame.deepCopyPanel(QuestionPage.questionPanel));
+                }
+                homeWork.mainQuestions = MainFrame.deepCopyPanel(QuestionPage.questionPanel);
                 QuestionPage.getInstance().setVisible(false);
                 MainFrame.getMainFrame().add(HomeWorkPage.getInstance());
                 HomeWorkPage.getInstance().setVisible(true);
             }
         });
-
+        this.add(submitButton);
         this.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 20));
         this.setPreferredSize(new Dimension(945, 255));
         this.setBackground(MainFrame.themeColor);

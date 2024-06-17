@@ -1,10 +1,8 @@
 package Questions;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 

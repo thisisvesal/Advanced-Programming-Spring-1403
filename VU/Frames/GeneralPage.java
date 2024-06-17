@@ -55,8 +55,13 @@ public class GeneralPage extends JPanel {
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((JButton)e.getSource()).getParent().getParent().setVisible(false);
+                CoursePage.getInstance().setVisible(false);
+                ExamPage.getInstance().setVisible(false);
+                HomeWorkPage.getInstance().setVisible(false);
+                QuestionPage.getInstance().setVisible(false);
+                
                 HomePage.getInstance().setVisible(true);
+                System.out.println("Homebutton was pressed");
             }
         });
         homeButton.setPreferredSize(new Dimension(117, 70));
@@ -68,8 +73,14 @@ public class GeneralPage extends JPanel {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((JButton)e.getSource()).getParent().getParent().getParent().setVisible(false);
+                HomePage.getInstance().setVisible(false);
+                CoursePage.getInstance().setVisible(false);
+                ExamPage.getInstance().setVisible(false);
+                HomeWorkPage.getInstance().setVisible(false);
+                QuestionPage.getInstance().setVisible(false);
+
                 LoginPage.getInstance().setVisible(true);
+                System.out.println("Logout button was pressed");
             }
         });
         logoutButton.setPreferredSize(new Dimension(117, 70));
@@ -96,4 +107,5 @@ public class GeneralPage extends JPanel {
         nameLabel.setText(person.getFullName());
         idLabel.setText(person.getID());
     }
+    
 }

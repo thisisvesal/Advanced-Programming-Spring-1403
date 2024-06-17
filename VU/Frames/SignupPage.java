@@ -104,6 +104,7 @@ public class SignupPage extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SignupPage.signupSuccessful = false;
                 if (!field[7].getText().equals(field[8].getText())) {
                     JOptionPane.showOptionDialog(MainFrame.getMainFrame(), "Cheek your password!", "Warning",
                             JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");

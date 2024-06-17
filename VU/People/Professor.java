@@ -1,5 +1,6 @@
 package People;
 
+import Exceptions.InvalidIDException;
 import Frames.HomePage;
 import Frames.LoginPage;
 
@@ -22,10 +23,10 @@ public class Professor extends Person {
         if (matchFound) {
             return true;
         }
-
-        JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid ID ", "Warning", JOptionPane.WARNING_MESSAGE,
-                JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
-        return false;
+        throw new InvalidIDException();
+//        JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid ID ", "Warning", JOptionPane.WARNING_MESSAGE,
+//                JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+//        return false;
     }
 
     @Override

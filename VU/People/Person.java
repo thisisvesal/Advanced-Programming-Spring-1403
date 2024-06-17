@@ -1,5 +1,6 @@
 package People;
 
+import Exceptions.*;
 import Frames.LoginPage;
 import Frames.SignupPage;
 import Questions.Course;
@@ -7,11 +8,15 @@ import Questions.Home;
 
 import javax.swing.*;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Person {
+public abstract class Person implements Serializable {
     public static ArrayList<Person> people = new ArrayList<>();
     String name, lastName, FieldOfStudy, UserName, Password, phoneNumber, email, ID;
     public static int personCounter;
@@ -24,59 +29,76 @@ public abstract class Person {
 
     public Person(String name, String lastName, String FieldOfStudy, String ID, String phoneNumber,
                   String email, String UserName, String Password) {
-        if (!isInputValid(name)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid name!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+
+        String Invalid="";
+        try {
+            Invalid="Invalid name!";
+            isInputValid(name);
+            Invalid="Invalid lastName!";
+            isInputValid(lastName);
+            Invalid="Invalid FieldOfStudy!";
+            isInputValid(FieldOfStudy);
+        }catch (InvalidInput e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), Invalid,
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isInputValid(lastName)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid last name!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+        }
+        try {
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), "ID Processed",
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+            isIDValid(ID);
+        }catch (InvalidIDException e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), e.getMessage(),
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isInputValid(FieldOfStudy)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid Field of Study!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+        }
+        try {
+            isPhoneNumberValid(phoneNumber);
+        } catch (InvalidPhoneNumber e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), e.getMessage(),
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isIDValid(ID)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid ID !", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+        }
+        try {
+            isEmailValid(email);
+        }catch (InvalidEmail e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), e.getMessage(),
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isPhoneNumberValid(phoneNumber)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid phone number!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+        }
+        try {
+            isUserNameValid(UserName);
+        }catch (InvalidUsername e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), e.getMessage(),
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isEmailValid(email)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid email!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+        }
+        try {
+            isPasswordValid(Password);
+        }catch (InvalidPassword e){
+            JOptionPane.showOptionDialog(LoginPage.getInstance(), e.getMessage(),
+                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
-        } else if (!isUserNameValid(UserName)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid username!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
-            return;
-        } else if (!isPasswordValid(Password)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Invalid password!", "Warning",
-                    JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
-            return;
-        } else if (!UniqueID(ID)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "This educational ID already exits!",
+        }
+        if (!UniqueID(ID)) {
+           JOptionPane.showOptionDialog(LoginPage.getInstance(), "This educational ID already exits!",
                     "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" },
                     "OK");
-            return;
-        } else if (!UniqueEmail(email)) {
+           return;
+       } else if (!UniqueEmail(email)) {
             JOptionPane.showOptionDialog(LoginPage.getInstance(), "Such email already exits!", "Warning",
                     JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
             return;
         } else if (!UniqueUserName(UserName)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Such UserName already exits!",
+           JOptionPane.showOptionDialog(LoginPage.getInstance(), "Such UserName already exits!",
                     "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" },
-                    "OK");
+                   "OK");
             return;
         } else if (!UniquePhoneNumber(phoneNumber)) {
-            JOptionPane.showOptionDialog(LoginPage.getInstance(), "Such PhoneNumber already exits!",
-                    "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" },
-                    "OK");
-            return;
-        }
-
+           JOptionPane.showOptionDialog(LoginPage.getInstance(), "Such PhoneNumber already exits!",
+                   "Warning", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
+           return;
+       }
         this.name = name;
         this.lastName = lastName;
         this.FieldOfStudy = FieldOfStudy;
@@ -96,11 +118,6 @@ public abstract class Person {
             if (person.Password.equals(password) && person.UserName.equals(UserName)) {
                 return true;
             }
-            // THIS WILL NEVER BE SATISFIED
-            // else if (!person.Password.equals(password) && person.ID.equals(ID)) {
-            // LoginPage.ForgetPass = true;
-            // return false;
-            // }
         }
         JOptionPane.showOptionDialog(LoginPage.getInstance(), "No such user found!", "Warning",
                 JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[] { "OK" }, "OK");
@@ -108,7 +125,8 @@ public abstract class Person {
         return false;
     }
 
-    public static Person findPerson(String UserName, String password) {
+    public static Person findPerson(String UserName, String password) throws Exception{
+        if(people == null) throw new Exception();
         for (Person person : people) {
             if (person.Password.equals(password) && person.UserName.equals(UserName)) {
                 return person;
@@ -149,7 +167,7 @@ public abstract class Person {
         return true;
     }
 
-    protected boolean isUserNameValid(String UserName) {
+    protected boolean isUserNameValid(String UserName) throws InvalidUsername {
         String regex = "^[a-zA-Z0-9]{1,12}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(UserName);
@@ -157,10 +175,10 @@ public abstract class Person {
         if (matchFound) {
             return true;
         }
-        return false;
+        throw new InvalidUsername();
     }
 
-    protected boolean isPasswordValid(String pass) {
+    protected boolean isPasswordValid(String pass) throws InvalidPassword {
         String regex = "^[a-zA-Z0-9]{1,12}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(pass);
@@ -168,10 +186,10 @@ public abstract class Person {
         if (matchFound) {
             return true;
         }
-        return false;
+        throw new InvalidPassword();
     }
 
-    protected boolean isInputValid(String string) {
+    protected boolean isInputValid(String string) throws InvalidInput {
         String regex = "^[a-zA-Z]{1,18}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(string);
@@ -179,10 +197,10 @@ public abstract class Person {
         if (matchFound) {
             return true;
         }
-        return false;
+       throw new InvalidInput();
     }
 
-    protected boolean isEmailValid(String email) {
+    protected boolean isEmailValid(String email) throws InvalidEmail {
         String regex = "^[a-zA-Z0-9.]{1,18}@[a-z0-9.]{1,8}(.)[a-z]{1,4}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(email);
@@ -190,12 +208,12 @@ public abstract class Person {
         if (matchFound) {
             return true;
         }
-        return false;
+        throw new InvalidEmail();
     }
 
-    public abstract boolean isIDValid(String ID);
+    public abstract boolean isIDValid(String ID) throws InvalidIDException;
 
-    protected boolean isPhoneNumberValid(String phone) {
+    protected boolean isPhoneNumberValid(String phone) throws InvalidPhoneNumber {
         String regex = "^09[0-9]{9}$";
         Pattern patten = Pattern.compile(regex);
         Matcher matcher = patten.matcher(phone);
@@ -203,7 +221,7 @@ public abstract class Person {
         if (matchFound) {
             return true;
         }
-        return false;
+        throw new InvalidPhoneNumber();
     }
 
     public String getFullName() {
@@ -232,5 +250,15 @@ public abstract class Person {
 
     public Home getHome() {
         return home;
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        // out.writeObject(this.Password);  // Custom serialization for password
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        // this.password = decryptPassword((String) in.readObject());  // Custom deserialization for password
     }
 }

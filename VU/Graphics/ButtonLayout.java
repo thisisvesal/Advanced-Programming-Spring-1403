@@ -5,8 +5,9 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager2;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class ButtonLayout implements LayoutManager2 {
+public class ButtonLayout implements LayoutManager2, Serializable {
 
     public enum Alignment {
         VERTICAL, HORIZONTAL

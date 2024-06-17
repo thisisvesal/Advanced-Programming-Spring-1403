@@ -1,47 +1,58 @@
 package Questions;
 
 import Clock.ClockCountdown;
+import FileHandling.SerializableActionListener;
+import FileHandling.SerializableMouseAdapter;
 import Frames.*;
 import People.Person;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
+
 import Graphics.PlaceholderTextField;
 import People.Professor;
 import People.Student;
 
 public class HomeWork extends JPanel {
     public final ArrayList<Question> questions = new ArrayList<>();
+    public ArrayList<JPanel> homeWorkForStudent = new ArrayList<>();
     private JPanel homeWorkStatus, deadLine, scoreStatus, courseName;
     public JLabel homeWorkIcon, status, score, Name;
     public Object[][] answers = new Object[60][];
     public JPopupMenu popupMenu = new JPopupMenu();
     public JPanel panel;
     private HomeWork currentObject;
-    public static int SwCorrection=1;
-    public  String StudentScore;
+    public static int SwCorrection = 1;
+    public String StudentScore;
+    public Course currentCourse;
+    public JPanel mainQuestions;
 
     public HomeWork(Course course) {
+        currentCourse = course;
         this.setPreferredSize(new Dimension(940, 790));
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setBackground(MainFrame.themeColor);
         this.setOpaque(true);
 
-
         this.homeWorkIcon = new JLabel();
         this.homeWorkIcon.setIcon(new ImageIcon("src/icons/homework.png"));
-        this.homeWorkIcon.addMouseListener(new MouseAdapter() {
+        this.homeWorkIcon.addMouseListener(new SerializableMouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 super.mouseClicked(e);
-                if(Person.getCurrentUser() instanceof Professor) arrangePageForProffesor();
-                else arrangePageForStudent();
+                System.out.println("\n\nCURRENT PERSON: ");
+                if (Person.getCurrentUser() instanceof Professor) {
+                    arrangePageForProffesor();
+                    System.out.println("PROFESSOR\n\n");
+                } else {
+                    arrangePageForStudent(Person.getCurrentUser().getID());
+                    System.out.println("STUDENT\n\n");
+                }
+
                 MainFrame.getMainFrame().coursePage.setVisible(false);
+                HomeWorkPage.getInstance().addHomeWork(HomeWork.this);
                 MainFrame.getMainFrame().homeWorkPage.setVisible(true);
             }
         });
@@ -76,10 +87,10 @@ public class HomeWork extends JPanel {
             if (person instanceof Student) {
                 Student student = (Student) person;
                 menuItems.add(new JMenuItem(person.getID()));
-                menuItems.get(counter).addActionListener(new ActionListener() {
+                menuItems.get(counter).addActionListener(new SerializableActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        SwCorrection=0;
+                        SwCorrection = 0;
                         HomeWorkPage.getInstance().setVisible(false);
                         MainFrame.getMainFrame().add(QuestionPage.getInstance());
 
@@ -94,12 +105,25 @@ public class HomeWork extends JPanel {
                         textField.setPlaceholder("Enter Score...");
                         dialog.add(textField);
                         JButton submitButton = new JButton("Submit");
-                        submitButton.addActionListener(new ActionListener() {
+                        submitButton.addActionListener(new SerializableActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                student.courses.get(0).homeWorks.get(0).StudentScore = textField.getText();
-                                dialog.dispose();
+                                // TODO courses.get i should only get index 0, the for loop is basically
+                                // redundant and was only desiged to throw an exception
+                                // if you believe :))
+                                try {
+                                    for (int i = 0; i < student.courses.size() + 1; i++) {
+                                        if (i >= student.courses.size()) {
+                                            throw new IndexOutOfBoundsException();
+                                        }
+                                        student.courses.get(i).homeWorks.get(i).StudentScore = textField.getText();
+                                        dialog.dispose();
+                                    }
+                                } catch (IndexOutOfBoundsException exception) {
+                                    System.out.println(exception.getMessage());
+                                    exception.printStackTrace();
 
+                                }
                             }
                         });
                         dialog.add(submitButton);
@@ -119,18 +143,23 @@ public class HomeWork extends JPanel {
         JButton viewQuestionsButton = new JButton("View questions");
         viewQuestionsButton.setFocusable(false);
         viewQuestionsButton.setBackground(Color.white);
-        viewQuestionsButton.addActionListener(new ActionListener() {
+        viewQuestionsButton.addActionListener(new SerializableActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SwCorrection=1;
+                if (mainQuestions != null) {
+                    QuestionPage.questionPanel.removeAll();
+                    QuestionPage.questionPanel.add(mainQuestions);
+                }
+                System.out.println("PROFESSOR HERE");
+                SwCorrection = 1;
                 Question.makeQuestion(currentObject);
                 HomeWorkPage.getInstance().setVisible(false);
                 MainFrame.getMainFrame().add(QuestionPage.getInstance());
+
                 QuestionPage.getInstance().setVisible(true);
             }
         });
         panel.add(viewQuestionsButton, BorderLayout.CENTER);
-
 
         popupMenu.removeAll();
         ArrayList<JMenuItem> menuItems = setMenuItem();
@@ -143,21 +172,20 @@ public class HomeWork extends JPanel {
         Correction.setText("Correction");
         Correction.setFocusable(false);
         Correction.setBackground(Color.white);
-        Correction.addActionListener(new ActionListener() {
+        Correction.addActionListener(new SerializableActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    popupMenu.show(Correction, 0, Correction.getHeight());
-                }
+                popupMenu.show(Correction, 0, Correction.getHeight());
+            }
         });
         panel.add(Correction, BorderLayout.EAST);
 
         JButton button = new JButton("Set Time");
-        button.addActionListener(new ActionListener() {
+        button.addActionListener(new SerializableActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog dialog = new JDialog();
                 dialog.setLayout(new FlowLayout());
-
 
                 SpinnerModel hourModel = new SpinnerNumberModel(0, 0, 23, 1);
                 SpinnerModel minuteModel = new SpinnerNumberModel(0, 0, 59, 1);
@@ -175,13 +203,13 @@ public class HomeWork extends JPanel {
                 dialog.add(secondSpinner);
 
                 JButton okButton = new JButton("OK");
-                okButton.addActionListener(new ActionListener() {
+                okButton.addActionListener(new SerializableActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                         ClockCountdown.hours = (int) hourSpinner.getValue();
-                         ClockCountdown.minutes = (int) minuteSpinner.getValue();
-                         ClockCountdown.seconds = (int) secondSpinner.getValue();
-//                        System.out.println("Selected time: " + hour + ":" + minute + ":" + second );
+                        ClockCountdown.hours = (int) hourSpinner.getValue();
+                        ClockCountdown.minutes = (int) minuteSpinner.getValue();
+                        ClockCountdown.seconds = (int) secondSpinner.getValue();
+                        // System.out.println("Selected time: " + hour + ":" + minute + ":" + second );
                         dialog.dispose();
                     }
                 });
@@ -197,8 +225,7 @@ public class HomeWork extends JPanel {
         panel.add(button);
     }
 
-
-    public void arrangePageForStudent(){
+    public void arrangePageForStudent(String ID) {
         panel.removeAll();
 
         JPanel box = new JPanel();
@@ -211,8 +238,10 @@ public class HomeWork extends JPanel {
         homeWorkStatus.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         status = new JLabel();
-        if(StudentScore==null)  status.setText("Status: Not loaded");
-        else  status.setText("Status: loaded");
+        if (StudentScore == null)
+            status.setText("Status: Not loaded");
+        else
+            status.setText("Status: loaded");
         homeWorkStatus.add(status);
         panel.add(homeWorkStatus);
 
@@ -222,8 +251,9 @@ public class HomeWork extends JPanel {
 
         score = new JLabel();
 
-        if(StudentScore==null) StudentScore="Not graded yet";
-        score.setText("Score:"+StudentScore);
+        if (StudentScore == null)
+            StudentScore = "Not graded yet";
+        score.setText("Score:" + StudentScore);
         scoreStatus.add(score);
         panel.add(scoreStatus);
 
@@ -252,11 +282,18 @@ public class HomeWork extends JPanel {
         JButton viewQuestionsButton = new JButton("View questions");
         viewQuestionsButton.setFocusable(false);
         viewQuestionsButton.setBackground(Color.white);
-        viewQuestionsButton.addActionListener(new ActionListener() {
+        viewQuestionsButton.addActionListener(new SerializableActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (Student student : currentCourse.students) {
+                    if (student.getID().equals(ID)) {
+                        QuestionPage.questionPanel.removeAll();
+                        QuestionPage.questionPanel.add(homeWorkForStudent.get(currentCourse.students.indexOf(student)));
+                    }
+                }
+                System.out.println("STUDENT HERE");
                 Question.makeQuestion(currentObject);
-                SwCorrection=1;
+                SwCorrection = 1;
                 HomeWorkPage.getInstance().setVisible(false);
                 MainFrame.getMainFrame().add(QuestionPage.getInstance());
                 QuestionPage.getInstance().setVisible(true);
