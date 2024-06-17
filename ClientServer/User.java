@@ -13,7 +13,7 @@ public class User {
     public User(String name, String password, ClientManager cm) {
         setName(name);
         setPassword(password);
-        setClientManager(cm);
+        // setClientManager(cm);
     }
 
     public String getName() {
@@ -28,9 +28,9 @@ public class User {
     private void setPassword(String password) {
         this.password = password;
     }
-    private void setClientManager(ClientManager cm) {
-        this.cm = cm;
-    }
+    // private void setClientManager(ClientManager cm) {
+    //     this.cm = cm;
+    // }
 
     public static User findUser(String name, String password) throws UserNotFoundException {
         for (User user : users) {
