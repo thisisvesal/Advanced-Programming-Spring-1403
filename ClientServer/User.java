@@ -8,7 +8,7 @@ public class User {
     private String name = "name";
     private String password;
     private static ArrayList<User> users = new ArrayList<>();
-    private ClientManager cm;
+    // private ClientManager cm;
 
     public User(String name, String password, ClientManager cm) {
         setName(name);
